@@ -1,0 +1,56 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Daily passenger flow map of Melbourne train lines and stations.",
+  "width": 760,
+  "height": 520,
+  "projection": {
+    "type": "mercator",
+    "center": [145.05, -37.95],
+    "scale": 35000
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "../data/vic_suburbs.topojson",
+        "format": {"type": "topojson", "feature": "vic_suburbs"}
+      },
+      "mark": {"type": "geoshape", "fill": "#e6e6e6", "stroke": "#ffffff", "strokeWidth": 0.5}
+    },
+    {
+      "data": {"url": "../data/cleaned/train_shapes.csv"},
+      "mark": {"type": "line", "strokeWidth": 2, "opacity": 0.4},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "order": {"field": "sequence_order", "type": "quantitative"},
+        "detail": {"field": "train_line_id", "type": "nominal"},
+        "color": {
+          "field": "train_line_id", 
+          "type": "nominal", 
+          "legend": {"title": "Train line"}
+        }
+      }
+    },
+    {
+      "data": {"url": "../data/cleaned/station_volumes_2024_2025.csv"},
+      "mark": {"type": "circle", "opacity": 0.6, "strokeWidth": 0},
+      "encoding": {
+        "longitude": {"field": "station_longitude", "type": "quantitative"},
+        "latitude": {"field": "station_latitude", "type": "quantitative"},
+        "size": {
+          "field": "daily_passenger_volume",
+          "type": "quantitative",
+          "scale": {"range": [10, 800]},
+          "legend": {"title": "Daily Passengers"}
+        },
+        "color": {
+          "value": "#1f77b4"
+        },
+        "tooltip": [
+          {"field": "station_name", "type": "nominal", "title": "Station"},
+          {"field": "daily_passenger_volume", "type": "quantitative", "title": "Daily Passengers"}
+        ]
+      }
+    }
+  ]
+}

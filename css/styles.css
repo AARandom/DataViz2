@@ -1,0 +1,54 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.page {
+  width: 100%;
+  max-width: 100%;
+  background-color: #ffffff;
+  margin: 0 auto;
+  padding: 20px 30px;
+  overflow-x: hidden;
+}
+
+.vis-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pure-g {
+  margin-bottom: 20px;
+}
+
+.small-font {
+  font-size: 12px;
+  color: #666;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 30px 0;
+}
+
+.my-vega-container {
+  width: 100%;      /* Takes up the full width of your dark column */
+  height: 600px;    /* You MUST define a height, adjust this as needed */
+  overflow: hidden; /* Prevents scrollbars */
+}

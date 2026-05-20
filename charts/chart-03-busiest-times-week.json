@@ -1,0 +1,14 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Busiest times of the week heatmap.",
+  "width": 300,
+  "height": 180,
+  "data": {"url": "../data/cleaned/vista_train_by_day_hour.csv"},
+  "mark": "rect",
+  "encoding": {
+    "x": {"field": "time_of_day_hour", "type": "ordinal", "title": "Hour"},
+    "y": {"field": "day_of_week", "type": "nominal", "title": "Day"},
+    "color": {"field": "passenger_count", "type": "quantitative", "scale": {"scheme": "greens"}},
+    "tooltip": [{"field": "passenger_count", "type": "quantitative"}]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 600,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "layer": [
+    {
+      "comment": "LAYER 0: MELBOURNE SUBURBS",
+      "data": {
+        "url": "../data/vic_suburbs.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "vic_suburbs"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e6e6e6",
+        "stroke": "#ffffff"
+      }
+    },
+    {
+      "comment": "LAYER 1: TRAIN LINES",
+      "data": {
+        "url": "../data/cleaned/clean_train_shapes.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "sequence_order": "number",
+            "latitude": "number",
+            "longitude": "number"
+          }
+        }
+      },
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "detail": {
+          "field": "shape_id", 
+          "type": "nominal"
+        },
+        "color": {
+          "field": "train_line_name",
+          "type": "nominal",
+          "legend": {
+            "title": "Train Line"
+          }
+        },
+        "order": {
+          "field": "sequence_order",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "train_line_name",
+            "type": "nominal",
+            "title": "Line"
+          }
+        ]
+      }
+    },
+    {
+      "comment": "LAYER 2: STATIONS",
+      "data": {
+        "url": "../data/cleaned/station_volumes_2024_2025.csv",
+        "format": {
+          "parse": {
+            "daily_passenger_volume": "number"
+          }
+        }
+      },
+      "mark": {
+        "type": "circle",
+        "opacity": 0.5
+      },
+      "encoding": {
+        "longitude": {
+          "field": "station_longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "station_latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "daily_passenger_volume",
+          "type": "quantitative",
+          "scale": {
+            "range": [10, 100]
+          },
+          "legend": {
+            "title": "Daily Volume"
+          }
+        },
+        "order": {
+          "field": "daily_passenger_volume",
+          "type": "quantitative",
+          "sort": "descending"
+        },
+        "color": {
+          "value": "#d35400"
+        },
+        "tooltip": [
+          {
+            "field": "station_name",
+            "type": "nominal",
+            "title": "Station"
+          },
+          {
+            "field": "daily_passenger_volume",
+            "type": "quantitative",
+            "title": "Daily Volume",
+            "format": ","
+          }
+        ]
+      }
+    }
+  ]
+}

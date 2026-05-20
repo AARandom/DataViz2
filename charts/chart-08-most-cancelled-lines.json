@@ -1,0 +1,13 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Most cancelled lines.",
+  "width": 300,
+  "height": 250,
+  "data": {"url": "../data/cleaned/train_line_performance.csv"},
+  "mark": {"type": "bar", "color": "#e74c3c"},
+  "encoding": {
+    "y": {"field": "train_line_name", "type": "nominal", "sort": "-x"},
+    "x": {"field": "cancellation_percentage", "type": "quantitative"},
+    "tooltip": [{"field": "cancellation_percentage", "type": "quantitative"}]
+  }
+}

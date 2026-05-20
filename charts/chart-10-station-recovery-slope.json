@@ -1,0 +1,47 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Station recovery from 2019 to 2024.",
+  "width": 300,
+  "height": 400,
+  "data": {"url": "../data/cleaned/station_volume_change_2019_2024.csv"},
+  "transform": [
+    {
+      "window": [{"op": "rank", "as": "rank"}],
+      "sort": [{"field": "annual_passenger_count_2024", "order": "descending"}]
+    },
+    {"filter": "datum.rank <= 20"},
+    {"fold": ["annual_passenger_count_2019", "annual_passenger_count_2024"], "as": ["year", "count"]}
+  ],
+  "encoding": {
+    "y": {
+      "field": "station_name", 
+      "type": "nominal", 
+      "sort": {"field": "count", "op": "max", "order": "descending"},
+      "title": "Station"
+    },
+    "x": {
+      "field": "count", 
+      "type": "quantitative", 
+      "title": "Annual Passengers"
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "line", "color": "#cccccc"},
+      "encoding": {
+        "detail": {"field": "station_name", "type": "nominal"}
+      }
+    },
+    {
+      "mark": {"type": "point", "size": 80, "opacity": 1},
+      "encoding": {
+        "color": {"field": "year", "type": "nominal", "title": "Year"},
+        "tooltip": [
+          {"field": "station_name", "type": "nominal"}, 
+          {"field": "year", "type": "nominal"}, 
+          {"field": "count", "type": "quantitative"}
+        ]
+      }
+    }
+  ]
+}

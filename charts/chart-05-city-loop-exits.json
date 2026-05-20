@@ -1,0 +1,19 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "City Loop station exits donut chart.",
+  "width": 300,
+  "height": 200,
+  "data": {"url": "../data/cleaned/station_volumes_2024_2025.csv"},
+  "transform": [
+    {"filter": "indexof(['Flinders Street','Southern Cross','Melbourne Central','Parliament','Flagstaff'], datum.station_name) >= 0"}
+  ],
+  "mark": {"type": "arc", "innerRadius": 50, "stroke": "white"},
+  "encoding": {
+    "theta": {"field": "daily_passenger_volume", "type": "quantitative"},
+    "color": {"field": "station_name", "type": "nominal", "title": "Station"},
+    "tooltip": [
+      {"field": "station_name", "type": "nominal", "title": "Station"}, 
+      {"field": "daily_passenger_volume", "type": "quantitative", "title": "Daily Passengers"}
+    ]
+  }
+}

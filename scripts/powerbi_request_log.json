@@ -1,0 +1,582 @@
+[
+    {
+        "url": "https://app.powerbi.com/view?r=eyJrIjoiNWQ1MDkwMDEtMDA2NS00ODhlLWFjNzgtMjhhOTM0M2U3OWYxIiwidCI6IjUwOTRjN2E3LTA3NDgtNDY2ZS05NDFlLTcyODgyYzMwOTdiYSJ9",
+        "method": "GET",
+        "resource_type": "document"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/styles/reportembed.bundle.min.789411cac1cf96992919.css",
+        "method": "GET",
+        "resource_type": "stylesheet"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/images/spinner-PBI-logo.150b66cb3782a15fdd41.svg",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/jquery.globalize/globalize.min.c64f544570ca82c93ed3.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/jquery.globalize/globalize.culture.en-US.4f22df3a747a4b08eecd.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://app.powerbi.com/13.0.28500.557/scripts/hash-manifest.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportembed.externals.bundle.min.cd2833d04c84ed3d70fb.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/stylelibrary.min.528453e208d1f0057384.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.vendors.min.28f00d0ca2c54aa52814.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.min.cba257110b550d91a426.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/jquery-ui.min.54471b21b524931a54a1.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.app-insights.min.8aaed2718bfe849e2267.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.PowerBIResources.min.afbbeae8a67d7e809393.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.fluent-no-header-teal.json.min.488e2049911c02fa152b.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.json-contracts.min.bd5ac95be8e6f7f108df.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/5d509001-0065-488e-ac78-28a9343e79f1/modelsAndExploration?preferReadOnlySession=true",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/fonts/PowrMDL3.fa7dc9744c4804830659.woff",
+        "method": "GET",
+        "resource_type": "font"
+    },
+    {
+        "url": "https://pbivisuals.powerbi.com/approvedResources.json",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.reportEmbed.visuals.min.94007da2a7cfa0dda792.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.insightsui-internal.min.2fd514a02dddcdb5ff93.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/externals/jquery-ui.min.1430cb45089bd086026b.css",
+        "method": "GET",
+        "resource_type": "stylesheet"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.ExplorationPersistentState.min.0ba6806d10bfd7150c26.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/externals/powerbi-models.min.8fab9b1ee89ac201b4ed.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/externals/jquery-ui.min.02de7165092644634e71.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.visual-container-skittles.min.126f5d0070dfbc66480c.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-5c1fcefe-5757-4d16-b26e-b2cd656dc0bbmeYp1PWhoVopOOMw4wskvnXjr5OxSEHT1JckpoZ-i0M%3D.json",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://app.powerbi.com/13.0.28500.557/sharedresources/BaseThemes/CY22SU03.json",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/conceptualschema",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-a8b29ec7-bef3-4847-a6a4-aef08e161004MFO9JhRc5FD086GVON941S2FVh9yRuLFLRtR1BKAkp4%3D.png",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-1b29bbba-15ea-454d-8e8b-02ab82893830naHA0bJ1wdLIa3U-8RMbaAmbnnY5LDlAIsDT4OwjqTc%3D.jpg",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-7883e3b8-1764-46b1-a0e5-7bf3dbdb71acIOGvNk1hwWF.sJaIFB4LP2MNsdlrQkp5of.jpg",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-2c9cfeeb-790f-4bc0-93c3-0430de7e469csoXQ7L76LlDWbUt-nRpQII9I-U4HNiOFpfQ9MNDYfUc%3D.jpg",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-89ce3e2f-22c8-40df-a59b-5ba74eef3f4cUNOKzHrIFD-8dn5B0qnFfmp3aRyiebz.png",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-752a4218-5f81-43d6-b3a1-1399961f9c236OUu9.png",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-39ef86d0-c9cd-4cdb-9b40-6490823c18985OBihyn5ZIaGSjNgcHL.PYylFvYboH.jpg",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.CopyVisualImage.min.c1b0b36db56d5325ad64.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/images/fluentui-icons.53cdc7d3d2644d1ac3b1.svg",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://appsource.powerbi.com/visuals.json",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.ImageVisual.min.2075dbd96b0120b6b59f.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.TextboxVisual.min.a7223c767b618342855f.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.SingleValueVisuals.min.c0bc2f414cd9f190a88e.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "blob:https://app.powerbi.com/7682fadf-1f76-46f3-bdce-26028dbcf971",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "blob:https://app.powerbi.com/f865ebbf-d4fa-4f05-a54e-5846450cbb62",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "blob:https://app.powerbi.com/1fa9e9dd-9746-41f9-8829-2bf7ab50e16e",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "blob:https://app.powerbi.com/30be88b0-a7ef-4a23-a3b1-24c4be3d58fb",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "blob:https://app.powerbi.com/85435dcb-70b9-47df-b87b-1320e68086c1",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "blob:https://app.powerbi.com/a3e2c5d2-fc23-4325-983e-310f562178e8",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "blob:https://app.powerbi.com/6790b330-638a-45e4-821d-53f507fe70a6",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/fonts/StandardFont.c332ed958e3c0c331e69.woff",
+        "method": "GET",
+        "resource_type": "font"
+    },
+    {
+        "url": "https://app.powerbi.com/images/PowerBI_Favicon.ico",
+        "method": "GET",
+        "resource_type": "other"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-bd2f522a-410e-4e8f-b5df-6856cdc5e7d1Mpw.jpg",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/styles/pivotTableVisuals.min.792b530749fb65be15fc.css",
+        "method": "GET",
+        "resource_type": "stylesheet"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.BasicShapeVisual.min.836d7bd9c5a4f3065104.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.ShapeVisual.min.25525d3b444dc84734fb.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.NavigatorVisuals.min.0cc125e9d97675b77b90.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.SlicerVisual.min.6779bb6f0afe4e13be0c.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.CartesianVisuals.min.e3e8db66d7c7972e66ee.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/resourcePackage/48729123/1%2F5094c7a7-0748-466e-941e-72882c3097ba%2FResourcePackage%2FBlobIdV2-e5219c49-62b7-4b6c-b094-e23110222b87b5Tsq-HTTZVhfsKjvFWSB0RVflKHukcvUifp3PxmXUk%3D.png",
+        "method": "GET",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.PivotTableVisuals.min.95d9c16a23b219d065c3.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/fonts/PowrMDL2.0fdf4eca4e7765ee8d57.woff",
+        "method": "GET",
+        "resource_type": "font"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/fonts/PowerVisuals.46050bbbacf2159d2478.woff",
+        "method": "GET",
+        "resource_type": "font"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "blob:https://app.powerbi.com/82672c59-cef8-410d-82ea-1ef715379c7d",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "blob:https://app.powerbi.com/e9714c4d-49b8-48ac-8eb3-a9c60e625ecf",
+        "method": "GET",
+        "resource_type": "image"
+    },
+    {
+        "url": "https://content.powerapps.com/resource/powerbiwfe/scripts/reportEmbed.drill-through.min.a139bbf39187a96e3db5.js",
+        "method": "GET",
+        "resource_type": "script"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    },
+    {
+        "url": "https://wabi-australia-southeast-api.analysis.windows.net/public/reports/querydata?synchronous=true",
+        "method": "POST",
+        "resource_type": "xhr"
+    }
+]

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Network Delivery and Punctuality Trends (2024-2026).",
+  "width": 700,
+  "height": 300,
+  "data": {"url": "../data/cleaned/network_trends.csv"},
+  "transform": [
+    {
+      "fold": ["delivery_percentage", "punctuality_percentage"],
+      "as": ["Metric", "Percentage"]
+    },
+    {
+      "calculate": "datum.Metric == 'delivery_percentage' ? 'Delivery' : 'Punctuality'",
+      "as": "Metric Name"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": {"size": 75},
+    "strokeWidth": 3
+  },
+  "encoding": {
+    "x": {
+      "field": "month_year",
+      "type": "temporal",
+      "title": null,
+      "axis": {
+        "format": "%b %Y", 
+        "grid": false,
+        "labelAngle": -45
+      }
+    },
+    "y": {
+      "field": "Percentage",
+      "type": "quantitative",
+      "scale": {"zero": false},
+      "title": "Performance",
+      "axis": {"format": ".0%"}
+    },
+    "color": {
+      "field": "Metric Name",
+      "type": "nominal",
+      "title": null,
+      "scale": {"range": ["#2ecc71", "#3498db"]}
+    },
+    "tooltip": [
+      {"field": "month_year", "type": "temporal", "title": "Month", "format": "%B %Y"},
+      {"field": "Metric Name", "type": "nominal", "title": "Metric"},
+      {"field": "Percentage", "type": "quantitative", "title": "Rate", "format": ".2%"}
+    ]
+  }
+}

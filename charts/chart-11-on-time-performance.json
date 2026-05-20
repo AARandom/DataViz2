@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "On-time performance by line.",
+  "width": 400,
+  "height": 250,
+  "data": {"url": "../data/cleaned/train_line_performance.csv"},
+  "layer": [
+    {
+      "mark": {"type": "rule", "color": "#bdc3c7", "strokeWidth": 2},
+      "encoding": {
+        "x": {"field": "train_line_name", "type": "nominal", "sort": "-y"},
+        "y": {
+          "field": "on_time_percentage",
+          "type": "quantitative",
+          "scale": {"zero": false}
+        },
+        "y2": {"value": 250}
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 400, "color": "#3498db", "opacity": 1},
+      "encoding": {
+        "x": {
+          "field": "train_line_name",
+          "type": "nominal",
+          "sort": "-y",
+          "title": null,
+          "axis": {"labelAngle": -45}
+        },
+        "y": {
+          "field": "on_time_percentage",
+          "type": "quantitative",
+          "scale": {"zero": false},
+          "title": "On-Time Percentage"
+        },
+        "tooltip": [
+          {"field": "train_line_name", "type": "nominal"},
+          {"field": "on_time_percentage", "type": "quantitative"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#e74c3c",
+        "strokeWidth": 2,
+        "strokeDash": [5, 5]
+      },
+      "encoding": {"y": {"datum": 0.92}}
+    }
+  ]
+}

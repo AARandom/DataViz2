@@ -1,0 +1,17 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Morning peak direction by journey type.",
+  "width": 300,
+  "height": 200,
+  "data": {"url": "../data/cleaned/vista_train_am_peak_direction.csv"},
+  "transform": [
+    {"calculate": "datum.direction === 'Inbound' ? datum.passenger_count : -datum.passenger_count", "as": "signed"}
+  ],
+  "mark": "bar",
+  "encoding": {
+    "y": {"field": "journey_type", "type": "nominal"},
+    "x": {"field": "signed", "type": "quantitative"},
+    "color": {"field": "direction", "type": "nominal"},
+    "tooltip": [{"field": "passenger_count", "type": "quantitative"}]
+  }
+}

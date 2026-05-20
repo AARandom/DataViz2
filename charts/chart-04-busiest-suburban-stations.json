@@ -1,0 +1,31 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Top 15 busiest suburban stations (excluding City Loop).",
+  "width": 300,
+  "height": 200,
+  "data": {"url": "../data/cleaned/station_volumes_2024_2025.csv"},
+  "transform": [
+    {"filter": "indexof(['Flinders Street','Southern Cross','Melbourne Central','Parliament','Flagstaff'], datum.station_name) == -1"},
+    {
+      "window": [{"op": "row_number", "as": "rank"}],
+      "sort": [{"field": "daily_passenger_volume", "order": "descending"}]
+    },
+    {"filter": "datum.rank <= 15"}
+  ],
+  "mark": {"type": "bar", "color": "#2ecc71"},
+  "encoding": {
+    "y": {
+      "field": "station_name", 
+      "type": "nominal", 
+      "sort": {"field": "daily_passenger_volume", "order": "descending"}
+    },
+    "x": {
+      "field": "daily_passenger_volume", 
+      "type": "quantitative"
+    },
+    "tooltip": [
+      {"field": "station_name", "type": "nominal"},
+      {"field": "daily_passenger_volume", "type": "quantitative"}
+    ]
+  }
+}
