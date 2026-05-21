@@ -3,7 +3,7 @@
   "description": "On-time performance by line.",
   "width": 400,
   "height": 250,
-  "data": {"url": "../data/cleaned/train_line_performance.csv"},
+  "data": {"url": "data/cleaned/train_line_performance.csv"},
   "layer": [
     {
       "mark": {"type": "rule", "color": "#bdc3c7", "strokeWidth": 2},

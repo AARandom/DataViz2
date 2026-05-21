@@ -3,7 +3,7 @@
   "description": "Network Delivery and Punctuality Trends (2024-2026).",
   "width": 700,
   "height": 300,
-  "data": {"url": "../data/cleaned/network_trends.csv"},
+  "data": {"url": "data/cleaned/network_trends.csv"},
   "transform": [
     {
       "fold": ["delivery_percentage", "punctuality_percentage"],

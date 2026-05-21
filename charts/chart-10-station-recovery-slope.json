@@ -3,7 +3,7 @@
   "description": "Station recovery from 2019 to 2024.",
   "width": 300,
   "height": 400,
-  "data": {"url": "../data/cleaned/station_volume_change_2019_2024.csv"},
+  "data": {"url": "data/cleaned/station_volume_change_2019_2024.csv"},
   "transform": [
     {
       "window": [{"op": "rank", "as": "rank"}],

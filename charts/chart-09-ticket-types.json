@@ -3,7 +3,7 @@
   "description": "Fare type share.",
   "width": 300,
   "height": 200,
-  "data": {"url": "../data/cleaned/vista_train_fare_type_share.csv"},
+  "data": {"url": "data/cleaned/vista_train_fare_type_share.csv"},
   "mark": {"type": "arc", "innerRadius": 40, "stroke": "white"},
   "encoding": {
     "theta": {"field": "percentage", "type": "quantitative"},

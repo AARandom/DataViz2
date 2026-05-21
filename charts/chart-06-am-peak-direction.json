@@ -3,7 +3,7 @@
   "description": "Morning peak direction by journey type.",
   "width": 300,
   "height": 200,
-  "data": {"url": "../data/cleaned/vista_train_am_peak_direction.csv"},
+  "data": {"url": "data/cleaned/vista_train_am_peak_direction.csv"},
   "transform": [
     {"calculate": "datum.direction === 'Inbound' ? datum.passenger_count : -datum.passenger_count", "as": "signed"}
   ],

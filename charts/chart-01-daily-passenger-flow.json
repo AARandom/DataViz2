@@ -13,7 +13,7 @@
     {
       "comment": "LAYER 0: MELBOURNE SUBURBS",
       "data": {
-        "url": "../data/vic_suburbs.topojson",
+        "url": "data/vic_suburbs.topojson",
         "format": {
           "type": "topojson",
           "feature": "vic_suburbs"
@@ -28,7 +28,7 @@
     {
       "comment": "LAYER 1: TRAIN LINES",
       "data": {
-        "url": "../data/cleaned/clean_train_shapes.csv",
+        "url": "data/cleaned/clean_train_shapes.csv",
         "format": {
           "type": "csv",
           "parse": {
@@ -78,7 +78,7 @@
     {
       "comment": "LAYER 2: STATIONS",
       "data": {
-        "url": "../data/cleaned/station_volumes_2024_2025.csv",
+        "url": "data/cleaned/station_volumes_2024_2025.csv",
         "format": {
           "parse": {
             "daily_passenger_volume": "number"

@@ -11,13 +11,13 @@
   "layer": [
     {
       "data": {
-        "url": "../data/vic_suburbs.topojson",
+        "url": "data/vic_suburbs.topojson",
         "format": {"type": "topojson", "feature": "vic_suburbs"}
       },
       "mark": {"type": "geoshape", "fill": "#e6e6e6", "stroke": "#ffffff", "strokeWidth": 0.5}
     },
     {
-      "data": {"url": "../data/cleaned/train_shapes.csv"},
+      "data": {"url": "data/cleaned/train_shapes.csv"},
       "mark": {"type": "line", "strokeWidth": 2, "opacity": 0.4},
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
@@ -32,7 +32,7 @@
       }
     },
     {
-      "data": {"url": "../data/cleaned/station_volumes_2024_2025.csv"},
+      "data": {"url": "data/cleaned/station_volumes_2024_2025.csv"},
       "mark": {"type": "circle", "opacity": 0.6, "strokeWidth": 0},
       "encoding": {
         "longitude": {"field": "station_longitude", "type": "quantitative"},
