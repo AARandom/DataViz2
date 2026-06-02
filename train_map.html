@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Melbourne Train Network</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .controls {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div class="controls">
+        <label for="lineSelect"><strong>Select Train Line:</strong></label>
+        <select id="lineSelect">
+            <option value="All">All Network Lines</option>
+        </select>
+    </div>
+    
+    <div id="map"></div>
+</div>
+
+<script>
+    // 1. Initialize the Map centered on Melbourne
+    const map = L.map('map').setView([-37.8136, 144.9631], 10);
+
+    // 2. Add a clean, light basemap (similar to your Vega geoshapes)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }).addTo(map);
+
+    // Layer groups to manage lines and stations
+    let lineLayers = L.layerGroup().addTo(map);
+    let stationLayers = L.layerGroup().addTo(map);
+
+    let linesData = {};
+    let stationsData = [];
+
+    // 3. Load the CSV data
+    Promise.all([
+        d3.csv("data/cleaned/clean_train_shapes.csv"),
+        d3.csv("data/cleaned/station_volumes_2024_2025.csv") 
+    ]).then(([shapes, stations]) => {
+        
+        // Group shape coordinates by train line
+        shapes.forEach(row => {
+            const lineName = row.train_line_name;
+            if (!linesData[lineName]) linesData[lineName] = [];
+            // Leaflet expects [lat, lng]
+            linesData[lineName].push([+row.latitude, +row.longitude]);
+        });
+
+        // Populate the dropdown menu dynamically
+        const select = document.getElementById("lineSelect");
+        Object.keys(linesData).sort().forEach(line => {
+            const opt = document.createElement("option");
+            opt.value = line;
+            opt.innerHTML = line;
+            select.appendChild(opt);
+        });
+
+        // Format station data (Ensure your CSV has the 'train_line_name' column!)
+        stationsData = stations.map(s => ({
+            name: s.station_name,
+            lat: +s.station_latitude,
+            lon: +s.station_longitude,
+            volume: +s.daily_passenger_volume,
+            lines: s.train_line_name || "" 
+        }));
+
+        // Draw initial state (All lines)
+        updateMap("All");
+
+        // Listen for Dropdown changes
+        select.addEventListener("change", (e) => {
+            updateMap(e.target.value);
+        });
+    });
+
+    // 4. The core function to draw and Auto-Zoom
+    function updateMap(selectedLine) {
+        // Clear previous drawings
+        lineLayers.clearLayers();
+        stationLayers.clearLayers();
+
+        // Create an empty bounds object to track the required zoom area
+        let bounds = L.latLngBounds();
+
+        // Draw the path(s)
+        if (selectedLine === "All") {
+            Object.keys(linesData).forEach(line => {
+                const polyline = L.polyline(linesData[line], {color: '#bdc3c7', weight: 3, opacity: 0.6}).addTo(lineLayers);
+                bounds.extend(polyline.getBounds());
+            });
+        } else {
+            // Draw only the selected line, make it bold and colored
+            const polyline = L.polyline(linesData[selectedLine], {color: '#2980b9', weight: 5, opacity: 1}).addTo(lineLayers);
+            bounds.extend(polyline.getBounds());
+        }
+
+        // Draw the stations
+        stationsData.forEach(station => {
+            // Substring check: Does the station's line list include the selected line?
+            if (selectedLine === "All" || station.lines.includes(selectedLine)) {
+                
+                // Dynamically scale circle radius based on passenger volume
+                const radius = Math.max(4, Math.sqrt(station.volume) / 8); 
+                
+                const circle = L.circleMarker([station.lat, station.lon], {
+                    radius: radius,
+                    fillColor: "#d35400",
+                    color: "#ffffff",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                });
+
+                // Add a tooltip on hover
+                circle.bindTooltip(`
+                    <strong>${station.name}</strong><br>
+                    Lines: ${station.lines}<br>
+                    Daily Volume: ${station.volume.toLocaleString()}
+                `);
+                
+                circle.addTo(stationLayers);
+            }
+        });
+
+        // 5. AUTO-ZOOM MAGIC
+        // Check if bounds has data, then smoothly fly the map to fit those bounds
+        if (bounds.isValid()) {
+            map.flyToBounds(bounds, { 
+                padding: [50, 50], // Leaves a 50px buffer around the edges so data isn't cut off
+                duration: 0.8 // Animation duration in seconds
+            });
+        }
+    }
+</script>
+
+</body>
+</html>

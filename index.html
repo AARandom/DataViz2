@@ -2,10 +2,14 @@
 <html>
 
 <head>
-  <title>The Pulse of Melbourne | Train Network Dashboard</title>
+  <title>Melbourne Train Network Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
 
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
     integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
@@ -13,146 +17,452 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+
+  <style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        color: #2c3e50;
+    }
+    
+    .my-custom-label {
+        pointer-events: none;
+    }
+    .station-label-text {
+        position: absolute;
+        left: 12px;
+        top: -8px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        color: #2c3e50;
+        text-shadow: 2px 0 2px #fff, -2px 0 2px #fff, 0 2px 2px #fff, 0 -2px 2px #fff, 1px 1px 2px #fff, -1px -1px 2px #fff;
+        white-space: nowrap;
+        visibility: hidden;
+        transition: opacity 0.2s;
+    }
+    
+    /* Custom Scrollbar */
+    #external-legend::-webkit-scrollbar {
+        width: 6px;
+    }
+    #external-legend::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    #external-legend::-webkit-scrollbar-thumb {
+        background: #e0e0e0; 
+        border-radius: 4px;
+    }
+    #external-legend::-webkit-scrollbar-thumb:hover {
+        background: #bdc3c7; 
+    }
+
+    /* Minimalist Section styling */
+    .section-intro {
+        width: 100%;
+        margin: 50px 0 20px 0;
+    }
+
+    .section-intro h2 {
+        margin: 0;
+        font-size: 26px;
+        color: #111;
+        font-weight: 700;
+    }
+
+    .section-intro p {
+        font-family: 'Merriweather', serif;
+        font-size: 16px;
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 30px;
+    }
+
+    /* Low Data-to-Ink Chart Layout */
+    .chart-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        margin-bottom: 60px;
+        align-items: start;
+    }
+
+    .chart-row.full {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chart-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #111;
+    }
+
+    .chart-description {
+        font-size: 13px;
+        color: #888;
+        line-height: 1.5;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Space for explanations */
+    .story-text {
+        font-family: 'Merriweather', serif;
+        font-size: 14.5px;
+        color: #555;
+        line-height: 1.7;
+        margin-bottom: 25px;
+        font-style: italic;
+    }
+
+    .vis-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    /* Map Legend Styling */
+    .map-legend {
+        background: white;
+        padding: 12px;
+        border-radius: 4px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        color: #2c3e50;
+    }
+    .map-legend h4 {
+        margin: 0 0 10px 0;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #888;
+    }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .legend-circle {
+        display: inline-block;
+        border-radius: 50%;
+        border: 1.5px solid #2c3e50;
+        background: #ffffff;
+        opacity: 0.95;
+        margin-right: 12px;
+    }
+    .legend-no-data {
+        border: 1.5px solid #999999;
+        background: #e0e0e0;
+    }
+    .legend-divider {
+        border-top: 1px solid #eee;
+        margin: 10px 0;
+        padding-top: 8px;
+    }
+  </style>
+  <!-- Browser Tab Emoji Icon (Favicon) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚆</text></svg>">
 </head>
 
 <body>
 
-  <div class="page">
+  <!-- Sticky Navigation Bar -->
+  <nav class="sticky-nav">
+    <div class="sticky-nav-content">
+      <a href="#geography" class="nav-link active" data-section="geography">Geography</a>
+      <a href="#when" class="nav-link" data-section="when">When</a>
+      <a href="#why" class="nav-link" data-section="why">Why</a>
+      <a href="#stations" class="nav-link" data-section="stations">Stations</a>
+      <a href="#reliability" class="nav-link" data-section="reliability">Reliability</a>
+      <a href="#reference" class="nav-link" data-section="reference">Reference</a>
+    </div>
+  </nav>
 
-    <div class="pure-g">
-      <div class="pure-u-1-1">
-        <h1>The Pulse of Melbourne: How the City Moves</h1>
-        <p>An interactive exploration of passenger flow, network pressure, and reliability across the metropolitan train network.</p>
-      </div>
+  <div class="page" style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+
+    <!-- Modified Title Block Container with Logo Alignment -->
+<div style="margin-bottom: 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+  <div>
+    <h1 style="font-size: 45px; margin-bottom: 15px; color: #111; font-weight: 700; letter-spacing: -1px;">The Melbourne Metro</h1>
+    <p style="font-family: 'Merriweather', serif; font-size: 18px; color: #555; line-height: 1.7; margin: 0;">Pumping passengers from the suburbs to the CBD and back.</p>
+  </div>
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/19/Metro_Trains_Melbourne_Logo.svg/1280px-Metro_Trains_Melbourne_Logo.svg.png" alt="Metro Trains Melbourne Logo" style="max-height: 100px; width: auto; object-fit: contain;">
+</div>
+
+    <div class="section-intro" id="geography">
+      <h2 style="margin-bottom: 10px; font-size: 20px;">Network Geography</h2>
+      <p>Each train line serves a many suburbs in its general region (North, West, South East, etc.) and brings passengers to the city for their final destination or point of transfer to other train lines. The interactive map below shows the daily passenger volume of all stations in the Melbourne metro network indicated by circles. As we can see, some of the most busiest lines on the network are those of the Burnley Group (Belgrave, Lilydale, Alamein, and Glen Waverly) and the Pakenham ans Cranbourne Lines. The map also highlights some regional hubs where passenger numbers are above average, which are South Yarra, Footscray, Caufield, Box Hill, and Dandenong among others.</p>
     </div>
 
-    <!-- Row 1: Geographic Overview -->
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-4">
-        <h2>Daily Passenger Flow</h2>
-        <p>A geographic map of Melbourne's train network. Train lines are drawn as paths, and station locations are represented by circles. The size of each circle indicates the daily passenger volume for that station.</p>
-      </div>
-      <div class="pure-u-3-4">
-        <div id="chart1" class="vis-container"></div>
+    <div style="margin-bottom: 20px;">
+      <div style="display: grid; grid-template-columns: 220px 1fr; gap: 30px;">
+        <div id="external-legend" style="height: 600px; overflow-y: auto; font-size: 13px;"></div>
+        <div id="map" style="height: 600px; width: 100%; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"></div>
       </div>
     </div>
-
-    <hr>
-
-    <!-- Row 2: Temporal Rhythm -->
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-1">
-        <h2>Temporal Rhythm</h2>
-      </div>
+    
+    <div class="story-text">
+        Data collection ends 2025, as such it does not include the opening of the new Metro Tunnel stations (Anzac, Parkville, Arden) in late 2025.
     </div>
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-3">
-        <h3>Busiest Times of the Week</h3>
+
+    <div class="section-intro" id="when">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #f0f0f0; margin-bottom: 15px; padding-bottom: 5px;">
+        <h2 style="text-align: left; font-size: 30px;">When People Ride</h2>
+        <img src="https://melbournesptgallery.weebly.com/uploads/1/9/9/4/19942089/xtrapolis-ptv-new-2_orig.png" alt="X'Trapolis Train" style="width: 48%; height: 60px; object-fit: cover; object-position: right center; transform: scaleX(-1);">
+      </div>
+      <p>The networks is stressed at two points throughout each day: the AM and PM Peaks, where commuters go to the city to work and school in the morning, and when they return again in the evening. Congestion is normal during these periods and as such Metro Trains has allocated more services to run during the periods of 7:00 AM to 9:30 AM and 4:00 PM to 6:00 PM. The brunt of this is seen on the Cranbourne, Pakenham, and Sunbury lines where peak periods see a train service every 3-5 minutes in the respective peak direction compared to other lines of 7-10 minutes. </p>
+    </div>
+
+    <div class="chart-row">
+      <div class="chart-item">
+        <div class="chart-title">Busiest Times of the Week</div>
+        <div class="chart-description">Intensity of passenger concentration by day and hour</div>
+        <div class="story-text">
+            Busiest times of the week are on Tuesday mornings and Wednesday afternoons.<br>
+            <b>Click and drag on the legend to filter</b>
+        </div>
         <div id="chart3" class="vis-container"></div>
       </div>
-      <div class="pure-u-1-3">
-        <h3>Passengers by Hour</h3>
+      <div class="chart-item">
+        <div class="chart-title">Hourly Passenger Flow</div>
+        <div class="chart-description">Network-wide passenger trends across the day</div>
+        <div class="story-text">
+            Data is averaged across all stations and days to show daily patterns.
+            Data of both charts are from 2024 to 2025
+        </div>
         <div id="chart2" class="vis-container"></div>
       </div>
-      <div class="pure-u-1-3">
-        <p>This row focuses purely on "when" people are riding the train, looking at time-of-day and day-of-week trends.</p>
-        <p>Shows the macro daily peaks and troughs in passenger numbers.</p>
-        <p>Expands the time dimension to show how weekdays compare to weekends.</p>
-      </div>
     </div>
 
-    <hr>
 
-    <!-- Row 3: Passenger Profiles & Demographics -->
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-1">
-        <h2>Passenger Profiles & Demographics</h2>
+    <div class="section-intro" id="why">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #f0f0f0; margin-bottom: 15px; padding-bottom: 5px;">
+        <h2 style="font-size: 30px;">Why People Ride</h2>
+        <img src="https://melbournesptgallery.weebly.com/uploads/1/9/9/4/19942089/siemens-side-ptv-new-2_orig.png" alt="Siemens Train" style="width: 48%; height: 60px; object-fit: cover; object-position: left center;">
       </div>
+      <p>Passengers travel for different reasons such as work, education, and leisure among others, and these purposes shape where and when demand peaks. Understanding journey intent helps explain network patterns and reveals the role the metro network plays in the daily life of Melbournians.</p>
     </div>
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-3">
-        <h3>Morning Peak Direction by Journey Type</h3>
+
+    <div class="chart-row">
+      <div class="chart-item">
+        <div class="chart-title">Morning Peak: Inbound vs Outbound</div>
+        <div class="chart-description">Direction split by journey purpose during morning rush</div>
+        <div class="story-text">
+            Data does not include return trips, so analysis on PM peaks are not feasible.
+        </div>
         <div id="chart6" class="vis-container"></div>
       </div>
-      <div class="pure-u-1-3">
-        <p>This row answers "why" people are traveling and "how" they are paying, creating a demographic snapshot of the ridership.</p>
-        <p>Breaks down the morning rush by purpose (Work vs. Education) and direction.</p>
-        <p>Provides a simple breakdown of fare categories.</p>
-      </div>
-      <div class="pure-u-1-3">
-        <h3>Ticket Types</h3>
+      <div class="chart-item">
+        <div class="chart-title">Ticket Types & Fare Categories</div>
+        <div class="chart-description">Passenger commitment levels and equitable access</div>
+        <div class="story-text">
+            Concession fares account for over 20% of commuter journeys, highlighting the importance of affordable access for students, seniors, and low-income riders.    
+        </div>
         <div id="chart9" class="vis-container"></div>
       </div>
     </div>
 
-    <hr>
 
-    <!-- Row 4: Station Activity & Recovery -->
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-1">
-        <h2>Station Activity & Recovery</h2>
-        <p>This row contrasts the massive City Loop volumes against the busiest suburban hubs, while tracking the post-pandemic recovery.</p>
+    <div class="section-intro" id="stations">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #f0f0f0; margin-bottom: 15px; padding-bottom: 5px;">
+        <h2 style="text-align: left; font-size: 30px;">Station Hubs & Recovery</h2>
+        <img src="https://melbournesptgallery.weebly.com/uploads/1/9/9/4/19942089/edi-comeng-ptv_orig.png" alt="EDI Comeng Train" style="width: 48%; height: 60px; object-fit: cover; object-position: right center; transform: scaleX(-1);">
       </div>
+      <p>Not all stations are equal. The City Loop stations form the network's backbone, acting as people movers in Melbourne's densest area while suburban hubs create dispersed demand centers, often as interchange points to nearby train lines.</p>
     </div>
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-2">
-        <h3>City Loop Station Exits</h3>
+
+    <div class="chart-row">
+      <div class="chart-item">
+        <div class="chart-title">City Loop: The Central Hub</div>
+        <div class="chart-description">Exit shares across the five CBD loop stations</div>
+        <div class="story-text">
+            Flinders Street and Southern Cross are the busiest stations on the network, historically and currently. Southern Cross itself is a major hub for commuters using the VLine, coming in from Melbourne's neighbouring regional areas. Flinders Street is the most centrally located station though, with almost all trains services starting and terminating there.
+        </div>
         <div id="chart5" class="vis-container"></div>
       </div>
-      <div class="pure-u-1-2">
-        <h3>Busiest Suburban Stations</h3>
+      <div class="chart-item">
+        <div class="chart-title">Busiest Suburban Stations</div>
+        <div class="chart-description">Demand peaks outside the central business district</div>
+        <div class="story-text">
+            Outside the City Loop, some suburban stations act as smaller hubs for passenger traffic. Footscray, for example, is the closest station in Melbourne's North with connections to other train lines, alongside being a dedicated stop on certain VLine train routes. Besides being very close to the Melbourne CBD, it is very affordable and is quickly growing (Kutschukian, 2025).
+        </div>
         <div id="chart4" class="vis-container"></div>
       </div>
     </div>
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-1">
-        <h3>Pre-Pandemic Passenger Numbers: 2019 vs 2024</h3>
+
+    <div class="chart-row full">
+      <div class="chart-item">
+        <div class="chart-title">Recovery Slopes: 2019 vs 2024</div>
+        <div class="chart-description">Analysing Pre-Pandemic Levels of Stations</div>
+        <div class="story-text">
+            Pre-pandemic numbers are yet to be achieved at some stations, even City Loop ones. 
+        </div>
         <div id="chart10" class="vis-container"></div>
       </div>
     </div>
 
-    <hr>
 
-    <!-- Row 5: Network Reliability & Performance -->
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-1">
-        <h2>Network Reliability & Performance</h2>
-        <p>This row is purely diagnostic, focusing on the operational health of the train lines (punctuality and cancellations).</p>
+    <div class="section-intro" id="reliability">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #f0f0f0; margin-bottom: 15px; padding-bottom: 5px;">
+        <h2 style="font-size: 30px;">Reliability & Performance</h2>
+        <img src="https://melbournesptgallery.weebly.com/uploads/1/9/9/4/19942089/alstom-comeng-ptv_orig.png" alt="Alstom Comeng Train" style="width: 48%; height: 60px; object-fit: cover; object-position: left center;">
       </div>
+      <p>
+        To dutifully serve the people of Melbourne, the metro network must be reliable. Cancellations and Punctuality are key metrics to track, often interrelated, and are used to determine the quality of service provided to its commuters.
+      </p>
     </div>
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-2">
-        <h3>Most Cancelled Lines</h3>
-        <p>The companion to the on-time chart, showing the worst offenders for cancelled services.</p>
+
+    <div class="chart-row">
+      <div class="chart-item">
+        <div class="chart-title">Most Cancelled Lines</div>
+        <div class="chart-description">Disruption rankings by service line</div>
+        <div class="story-text">
+            The Hurstbridge line faces the most cancellations with almost 2% of scheduled services cancelled. As the frequency of services are usually 10 minutes during peak periods and 30 minutes elsewhere, the impact for commuters is significant. The top 5 lines here are dominated by the Clifton Hill group in red, and the Pakenham and Subury lines (part of the new Caufield and Sunbury group).
+        </div>
         <div id="chart8" class="vis-container"></div>
       </div>
-      <div class="pure-u-1-2">
-        <h3>On-Time Performance by Line</h3>
-        <p>A detailed ranking of punctuality, visually anchored by the 0.92 target line.</p>
+      <div class="chart-item">
+        <div class="chart-title">On-Time Performance by Line</div>
+        <div class="chart-description">Punctuality tracking against the 92% operational target</div>
+        <div class="story-text">
+            Delays here are championed by the Glen Waverly and Sandringham lines, but the Dandenong corridor used by the Cranbourne and Pakenham lines both rank in the top 5. It is likely that delays are caused by congestion and knock-on effects from other lines, which is a common issue in metro networks worldwide.
+        </div>
         <div id="chart11" class="vis-container"></div>
       </div>
     </div>
-    <div class="pure-g" style="text-align: center;">
-      <div class="pure-u-1-1">
-        <h3>Performance over the Years</h3>
-        <p>Delivery means XX. Punctuality means YY.</p>
+
+    <div class="chart-row full">
+      <div class="chart-item">
+        <div class="chart-title">Network Performance Trends (2024–2026)</div>
+        <div class="chart-description">Three-year evolution of delivery and punctuality metrics</div>
+        <div class="story-text">
+            Data from Metro Trains, aggregated across all train lines.<br>
+            Punctuality is defined as the percentage of on-time events at specific points, and Reliability refers to the proportion of timetabled services the operator delivers. We can see that service delivery is consistent except for one point in time but punctuality remains an important challange for Metro Trains to tackle.
+        </div>
         <div id="chart7" class="vis-container"></div>
       </div>
     </div>
 
-    <div class="pure-g">
-      <div class="pure-u-1-1 small-font">
-        <p>Data sourced from <a href="https://discover.data.vic.gov.au/" target="_blank">Data Vic</a> and the Department of Transport.</p>
-      </div>
+    <!-- Collapsible Reference Section -->
+<div id="reference" style="margin-top: 80px; padding-top: 30px; border-top: 1px solid #eaeaea;">
+  <button id="reference-toggle" class="reference-toggle" onclick="toggleReference()">
+    <span class="reference-toggle-text">📚 References & Data Sources</span>
+    <span class="reference-toggle-icon">▶</span>
+  </button>
+  <div id="reference-content" class="reference-content" style="margin-top: 20px;">
+    
+    <!-- Metadata Placeholders -->
+    <div style="font-family: 'Open Sans', sans-serif; font-size: 13px; color: #555555; margin: 0 0 25px 0; line-height: 1.6;">
+      <strong style="color: #555555;">Author:</strong> Aqil Bin Roslan<br>
+      <strong style="color: #555555;">Date:</strong> 2nd June 2026<br>
+      <strong style="color: #555555;">Purpose:</strong> Dashboard built for Monash University FIT2179: Data Visualization.
     </div>
+
+    <!-- Data Sources Subsection -->
+    <h4 style="font-family: 'Open Sans', sans-serif; font-size: 14px; color: #555555; margin: 0 0 12px 0; font-weight: 600;"><strong>Data Sources</strong></h4>
+    <div style="font-family: 'Open Sans', sans-serif; font-size: 13px; color: #777777; line-height: 1.6; margin-bottom: 25px;">
+      <p style="padding-left: 2em; text-indent: -2em; margin: 0 0 12px 0;">
+        Department of Transport. (2024). <em>Annual metropolitan train station patronage (station entries)</em> [Data set]. DataVic. <a href="https://discover.data.vic.gov.au/dataset/annual-metropolitan-train-station-patronage-station-entries" target="_blank" style="color: #888; text-decoration: none; border-bottom: 1px solid #ddd;">https://discover.data.vic.gov.au/dataset/annual-metropolitan-train-station-patronage-station-entries</a>
+      </p>
+      <p style="padding-left: 2em; text-indent: -2em; margin: 0 0 12px 0;">
+        Department of Transport and Planning. (n.d.). <em>Public transport monthly performance</em> [Dashboard]. Victoria State Government. Retrieved June 2, 2026, from <a href="https://www.vic.gov.au/public-transport-monthly-performance" target="_blank" style="color: #888; text-decoration: none; border-bottom: 1px solid #ddd;">https://www.vic.gov.au/public-transport-monthly-performance</a>
+      </p>
+      <p style="padding-left: 2em; text-indent: -2em; margin: 0 0 12px 0;">
+        Department of Transport and Planning. (2026a). <em>GTFS schedule</em> [Data set]. Open Data Transport Victoria. <a href="https://opendata.transport.vic.gov.au/dataset/gtfs-schedule" target="_blank" style="color: #888; text-decoration: none; border-bottom: 1px solid #ddd;">https://opendata.transport.vic.gov.au/dataset/gtfs-schedule</a>
+      </p>
+      <p style="padding-left: 2em; text-indent: -2em; margin: 0 0 12px 0;">
+        Department of Transport and Planning. (2026b). <em>Victorian integrated survey of travel and activity (VISTA)</em> [Data set]. DataVic. <a href="https://discover.data.vic.gov.au/dataset/victorian-integrated-survey-of-travel-and-activity-vista" target="_blank" style="color: #888; text-decoration: none; border-bottom: 1px solid #ddd;">https://discover.data.vic.gov.au/dataset/victorian-integrated-survey-of-travel-and-activity-vista</a>
+      </p>
+    </div>
+
+    <!-- References Subsection -->
+    <h4 style="font-family: 'Open Sans', sans-serif; font-size: 14px; color: #555; margin: 0 0 12px 0; font-weight: 600;"><strong>References</strong></h4>
+    <div style="font-family: 'Open Sans', sans-serif; font-size: 13px; color: #888; line-height: 1.6;">
+      <p style="padding-left: 2em; text-indent: -2em; margin: 0 0 12px 0;">
+        Kutschukian, A. (2025, September 8). <em>Why more buyers are choosing Footscray over other Melbourne suburbs</em>. Jas Stephens. <a href="https://www.jasstephens.com.au/why-more-buyers-are-choosing-footscray-over-other-melbourne-suburbs/" target="_blank" style="color: #888; text-decoration: none; border-bottom: 1px solid #ddd;">https://www.jasstephens.com.au/why-more-buyers-are-choosing-footscray-over-other-melbourne-suburbs/</a>
+      </p>
+      <p style="padding-left: 2em; text-indent: -2em; margin: 0 0 12px 0;">
+        Transport Victoria. (n.d.). <em>Timetables</em>. Department of Transport and Planning. <a href="https://transport.vic.gov.au/timetables" target="_blank" style="color: #888; text-decoration: none; border-bottom: 1px solid #ddd;">https://transport.vic.gov.au/timetables</a>
+      </p>
+    </div>
+  </div>
+</div>
 
   </div>
 
   <script type="text/javascript">
-    vegaEmbed('#chart1', './charts/chart-01-daily-passenger-flow.json', { "actions": false }).catch(console.error);
+    // ==========================================
+    // 0. STICKY NAV SCROLL DETECTION & SMOOTH SCROLL
+    // ==========================================
+    const NAV_HEIGHT = 50; // Height of sticky nav in pixels
+    const SCROLL_OFFSET = 20; // Additional padding below nav
+
+    // Handle nav link clicks with smooth scroll offset
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('data-section');
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          const targetPosition = targetElement.offsetTop - NAV_HEIGHT - SCROLL_OFFSET;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    function updateActiveNavLink() {
+      const sections = document.querySelectorAll('[id^="geography"], [id^="when"], [id^="why"], [id^="stations"], [id^="reliability"], [id^="reference"]');
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      let current = 'geography';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-section') === current) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNavLink);
+
+    // ==========================================
+    // 0.5 REFERENCE TOGGLE
+    // ==========================================
+    function toggleReference() {
+      const content = document.getElementById('reference-content');
+      const icon = document.querySelector('.reference-toggle-icon');
+      content.classList.toggle('expanded');
+      icon.style.transform = content.classList.contains('expanded') ? 'rotate(90deg)' : 'rotate(0deg)';
+    }
+
+    // ==========================================
+    // ==========================================
+    // 1. RENDER VEGA-LITE CHARTS
+    // ==========================================
     vegaEmbed('#chart2', './charts/chart-02-passengers-by-hour.json', { "actions": false }).catch(console.error);
     vegaEmbed('#chart3', './charts/chart-03-busiest-times-week.json', { "actions": false }).catch(console.error);
     vegaEmbed('#chart4', './charts/chart-04-busiest-suburban-stations.json', { "actions": false }).catch(console.error);
@@ -162,8 +472,411 @@
     vegaEmbed('#chart8', './charts/chart-08-most-cancelled-lines.json', { "actions": false }).catch(console.error);
     vegaEmbed('#chart9', './charts/chart-09-ticket-types.json', { "actions": false }).catch(console.error);
     vegaEmbed('#chart10', './charts/chart-10-station-recovery-slope.json', { "actions": false }).catch(console.error);
-    vegaEmbed('#chart11', './charts/chart-11-on-time-performance.json').catch(console.error);
-  </script>
+    vegaEmbed('#chart11', './charts/chart-11-on-time-performance.json', { "actions": false }).catch(console.error);
+
+    // ==========================================
+    // 2. INITIALIZE LEAFLET MAP ENGINE
+    // ==========================================
+    const lineColors = {
+        "Alamein": "#152C6B", "Belgrave": "#152C6B", "Glen Waverley": "#152C6B", "Lilydale": "#152C6B",
+        "Cranbourne": "#279FD5", "Pakenham": "#279FD5", "Sunbury": "#279FD5",
+        "Craigieburn": "#FFBE00", "Upfield": "#FFBE00",
+        "Hurstbridge": "#BE1014", "Mernda": "#BE1014",
+        "Frankston": "#028430", "Stony Point": "#028430",
+        "Sandringham": "#F178AF", "Werribee": "#F178AF", "Williamstown": "#F178AF",
+        "Flemington Racecourse": "#95979A"
+    };
+
+    // Organized Groups matching PTV operational structures
+    const lineGroups = {
+        "Burnley Group": ["Alamein", "Belgrave", "Glen Waverley", "Lilydale"],
+        "Caulfield & Sunbury": ["Cranbourne", "Pakenham", "Sunbury"],
+        "Northern Group": ["Craigieburn", "Upfield"],
+        "Clifton Hill Group": ["Hurstbridge", "Mernda"],
+        "Frankston Group": ["Frankston", "Stony Point"],
+        "Cross-City Group": ["Sandringham", "Werribee", "Williamstown"],
+        "Special Events": ["Flemington Racecourse"]
+    };
+
+    const map = L.map('map', {
+        minZoom: 9,           // Prevents zooming out too far
+        zoomSnap: 0.5,        // Allows half-step zoom levels
+        zoomDelta: 0.5        // Makes the +/- buttons step by 0.5
+    }).setView([-37.8136, 144.9631], 10.5); // 10.5 sits perfectly between default and the old increment
+
+    // ==========================================
+    // MAP LEGEND CONTROL
+    // ==========================================
+    const circleLegend = L.control({ position: 'bottomright' });
+
+    circleLegend.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'map-legend');
+
+        const sampleVolumes = [
+            { vol: 50000, label: '50,000' },
+            { vol: 10000, label: '10,000' },
+            { vol: 1000, label: '1,000' }
+        ];
+
+        let html = '<h4 style="margin: 0 0 15px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #888;">Daily Volume</h4>';
+
+        // 1. Calculate geometry based on your exact formula
+        const maxRadius = Math.max(4, Math.sqrt(50000) / 7);
+        const maxDiameter = maxRadius * 2;
+        const centerX = maxRadius + 5; // 5px padding on the left
+        const textX = centerX + maxRadius + 20; // X-coordinate where text labels will start
+
+        // 2. Container for nested circles
+        html += `<div style="position: relative; height: ${maxDiameter + 5}px; width: 160px; margin-bottom: 10px;">`;
+        
+        // Draw largest to smallest so smaller circles sit on top
+        sampleVolumes.forEach(size => {
+            const radius = Math.max(4, Math.sqrt(size.vol) / 7);
+            const diameter = radius * 2;
+
+            // The Circle (anchored to the bottom, centered horizontally)
+            html += `
+                <div style="position: absolute; bottom: 0; left: ${centerX - radius}px; width: ${diameter}px; height: ${diameter}px; border: 1.5px solid #2c3e50; border-radius: 50%; background: rgba(255,255,255,0.4);"></div>
+            `;
+
+            // The Dashed Leader Line (from the top-center of the circle pointing right)
+            html += `
+                <div style="position: absolute; bottom: ${diameter}px; left: ${centerX}px; width: ${textX - centerX - 5}px; border-bottom: 1px dashed #888; height: 1px;"></div>
+            `;
+
+            // The Text Label (vertically centered with the dashed line)
+            html += `
+                <div style="position: absolute; bottom: ${diameter - 6}px; left: ${textX}px; font-size: 11px; font-weight: 600; color: #444; line-height: 1;">${size.label}</div>
+            `;
+        });
+
+        html += `</div>`;
+
+        // 3. "No Data" Section (perfectly aligned with the nested center)
+        const noDataRadius = 10;
+        const noDataDiameter = noDataRadius * 2;
+        html += `
+            <div style="border-top: 1px solid #eee; margin: 15px 0 10px 0; padding-top: 0;"></div>
+            <div style="position: relative; height: ${noDataDiameter}px;">
+                <div style="position: absolute; left: ${centerX - noDataRadius}px; top: 0; width: ${noDataDiameter}px; height: ${noDataDiameter}px; border-radius: 50%; border: 1.5px solid #999999; background: #e0e0e0;"></div>
+                <div style="position: absolute; left: ${textX}px; top: 5px; color: #666; font-style: italic; font-size: 11px; line-height: 1;">No Data</div>
+            </div>
+        `;
+
+        div.innerHTML = html;
+        return div;
+    };
+
+    circleLegend.addTo(map);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }).addTo(map);
+
+    let lineLayers = L.layerGroup().addTo(map);
+    let stationLayers = L.layerGroup().addTo(map);
+    let labelLayers = L.layerGroup().addTo(map);
+    
+    let linesData = {};
+    let stationsData = [];
+    let activeLines = new Set(Object.keys(lineColors)); 
+    
+    // THREE SEPARATE STATE TOGGLES
+    let showCircles = true; 
+    let showLabels = true;
+    let showCityLoop = true;
+
+    // ==========================================
+    // 3. BUILD EXTERNAL LEGEND WITH GROUPINGS
+    // ==========================================
+    const legendContainer = document.getElementById('external-legend');
+    legendContainer.style.fontFamily = 'sans-serif';
+
+    let html = '<h4 style="margin: 0 0 15px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: #888;">Controls</h4>';
+    
+    html += `
+    <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center;">
+            <input type="checkbox" id="toggle-circles" checked style="margin:0 10px 0 0; cursor:pointer;">
+            <label for="toggle-circles" style="cursor:pointer; font-weight: 600; color: #555;">Suburb Passenger Volume</label>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <input type="checkbox" id="toggle-city-loop" checked style="margin:0 10px 0 0; cursor:pointer;">
+            <label for="toggle-city-loop" style="cursor:pointer; font-weight: 600; color: #555;">City Loop Passenger Volume</label>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <input type="checkbox" id="toggle-labels" checked style="margin:0 10px 0 0; cursor:pointer;">
+            <label for="toggle-labels" style="cursor:pointer; font-weight: 600; color: #555;">Show Station Names</label>
+        </div>
+    </div>`;
+
+    html += '<div style="margin-bottom: 15px; display:flex; gap: 8px;">';
+    html += '<button id="btn-select-all" style="flex: 1; padding:8px; cursor:pointer; background:#f9f9f9; color: #555; border:1px solid #e0e0e0; border-radius:3px; font-size:12px; transition: background 0.2s;">Select All</button>';
+    html += '<button id="btn-clear-all" style="flex: 1; padding:8px; cursor:pointer; background:#f9f9f9; color: #555; border:1px solid #e0e0e0; border-radius:3px; font-size:12px; transition: background 0.2s;">Clear All</button>';
+    html += '</div>';
+
+    // Loop through the groups instead of a flat list
+    Object.entries(lineGroups).forEach(([groupName, lines]) => {
+        // Group Sub-Header
+        html += `<div style="margin-top: 20px; margin-bottom: 8px; font-weight: 700; font-size: 10px; text-transform: uppercase; color: #aaa; letter-spacing: 1px;">${groupName}</div>`;
+        
+        // Render checkboxes for lines within this specific group
+        lines.forEach(line => {
+            const safeId = line.replace(/\s/g, '-');
+            html += `
+            <div style="margin-bottom: 10px; display: flex; align-items: center;">
+                <input type="checkbox" id="chk-${safeId}" class="line-checkbox" value="${line}" checked style="margin:0 10px 0 0; cursor:pointer;">
+                <label for="chk-${safeId}" style="cursor:pointer; display:flex; align-items:center; width:100%; font-size:13px; color:#444;">
+                    <span style="display:inline-block; width:12px; height:12px; background-color:${lineColors[line]}; border-radius:2px; margin-right:10px; border: 1px solid rgba(0,0,0,0.1);"></span>
+                    ${line}
+                </label>
+            </div>`;
+        });
+    });
+
+    legendContainer.innerHTML = html;
+
+    // ==========================================
+    // 4. LOAD DATA AND RENDER
+    // ==========================================
+    Promise.all([
+        d3.csv("data/cleaned/clean_train_shapes.csv"),
+        d3.csv("data/cleaned/station_volumes_2024_2025.csv") 
+    ]).then(([shapes, stations]) => {
+        
+        shapes.forEach(row => {
+            const lineName = row.train_line_name;
+            if (!linesData[lineName]) linesData[lineName] = [];
+            linesData[lineName].push([+row.latitude, +row.longitude]);
+        });
+
+        stationsData = stations.map(s => {
+            let vol = +s.daily_passenger_volume;
+            let lineStr = s.train_line_name || "";
+            let lat = +s.station_latitude;
+            let lon = +s.station_longitude;
+
+            // 1. Strip hidden spaces/newlines from the CSV string
+            let cleanName = (s.station_name || "").trim();
+
+            // 3. Force NaN back to -1 so JavaScript's sorting algorithm doesn't crash
+            if (isNaN(vol)) {
+                vol = -1;
+            }
+
+            return {
+                name: cleanName,
+                lat: lat,
+                lon: lon,
+                volume: vol,
+                lines: lineStr
+            };
+        }).sort((a, b) => b.volume - a.volume);
+
+        updateMap();
+
+        // Independent Toggle Change Handlers
+        // Helper to hide the legend only if BOTH volume toggles are off
+        function updateLegendVisibility() {
+            const legendEl = document.querySelector('.map-legend');
+            if (legendEl) {
+                legendEl.style.display = (showCircles || showCityLoop) ? 'block' : 'none';
+            }
+        }
+
+        document.getElementById('toggle-circles').addEventListener('change', (e) => {
+            showCircles = e.target.checked;
+            updateLegendVisibility();
+            updateMap(false); 
+        });
+
+        document.getElementById('toggle-city-loop').addEventListener('change', (e) => {
+            showCityLoop = e.target.checked;
+            updateLegendVisibility();
+            updateMap(false); 
+        });
+
+        document.getElementById('toggle-labels').addEventListener('change', (e) => {
+            showLabels = e.target.checked;
+            updateMap(false); // Pass false to prevent zooming
+        });
+
+        document.getElementById('btn-select-all').addEventListener('click', () => {
+            document.querySelectorAll('.line-checkbox').forEach(cb => cb.checked = true);
+            activeLines = new Set(Object.keys(lineColors));
+            updateMap();
+        });
+
+        document.getElementById('btn-clear-all').addEventListener('click', () => {
+            document.querySelectorAll('.line-checkbox').forEach(cb => cb.checked = false);
+            activeLines.clear();
+            updateMap();
+        });
+
+        document.querySelectorAll('.line-checkbox').forEach(cb => {
+            cb.addEventListener('change', (e) => {
+                if (e.target.checked) activeLines.add(e.target.value);
+                else activeLines.delete(e.target.value);
+                updateMap();
+            });
+        });
+
+    }).catch(err => console.error("Error loading CSV: ", err));
+
+    // ==========================================
+    // 5. MAP DRAWING AND COLLISION ENGINE
+    // ==========================================
+    function updateMap(adjustBounds = true) {
+        lineLayers.clearLayers();
+        stationLayers.clearLayers();
+        labelLayers.clearLayers();
+
+        let bounds = L.latLngBounds();
+
+        // Base background traces
+        Object.keys(linesData).forEach(line => {
+            if (!activeLines.has(line)) {
+                L.polyline(linesData[line], {color: '#bdc3c7', weight: 2, opacity: 0.2}).addTo(lineLayers);
+            }
+        });
+
+        // Highlight active routes
+        Object.keys(linesData).forEach(line => {
+            if (activeLines.has(line)) {
+                const hexColor = lineColors[line] || '#333333';
+                const polyline = L.polyline(linesData[line], {color: hexColor, weight: 4, opacity: 0.9}).addTo(lineLayers);
+                bounds.extend(polyline.getBounds());
+            }
+        });
+
+        // Parse nodes and conditionally attach markers/text fields
+        const cityLoopStations = ["Flinders Street", "Southern Cross", "Melbourne Central", "Parliament", "Flagstaff"];
+
+        // Parse nodes and conditionally attach markers/text fields
+        stationsData.forEach(station => {
+            
+            // SAFETY CATCH: If coordinates are broken, skip to prevent Leaflet from silently crashing
+            if (isNaN(station.lat) || isNaN(station.lon)) return;
+
+            const isCityLoop = cityLoopStations.includes(station.name);
+            
+            // Robust check: catches -1 OR missing/broken data (NaN)
+            const isNoData = station.volume === -1;
+
+            // 1. Filter out City Loop stations if the toggle is unchecked
+            // if (isCityLoop && !showCityLoop) return; 
+
+            let isStationActive = false;
+            
+            // 2. Check if the station belongs to a checked line in the legend
+            if (station.lines) {
+                const sLines = station.lines.split(',').map(l => l.trim());
+                for (let l of sLines) {
+                    if (activeLines.has(l)) { isStationActive = true; break; }
+                }
+            }
+
+            if (isStationActive) {
+                const radius = isNoData ? 10 : Math.max(4, Math.sqrt(station.volume) / 7); 
+                
+                // NEW LOGIC: Match the exact wording of your UI toggles
+                const shouldShowCircle = (isCityLoop && showCityLoop) || (!isCityLoop && showCircles);
+                
+                // 2. Draw Geometric Circle
+                if (shouldShowCircle) {
+                    const circle = L.circleMarker([station.lat, station.lon], {
+                        radius: radius,
+                        fillColor: isNoData ? "#e0e0e0" : "#ffffff",
+                        color: isNoData ? "#999999" : "#2c3e50",
+                        weight: 1.5,
+                        opacity: 1,
+                        fillOpacity: 0.95
+                    });
+
+                    if (isNoData) {
+                        circle.bindTooltip(`<div style="font-family:sans-serif; color: #666;"><strong>${station.name}</strong><br><em>No data yet</em></div>`);
+                    } else {
+                        circle.bindTooltip(`<div style="font-family:sans-serif;"><strong>${station.name}</strong><br>Lines: ${station.lines || 'N/A'}<br>Daily Volume: ${station.volume.toLocaleString()}</div>`);
+                    }
+                    circle.addTo(stationLayers);
+                }
+
+                // 3. Build DOM Label
+                if (showLabels) {
+                    const leftOffset = shouldShowCircle ? Math.max(12, radius + 4) : 6;
+                    const textStyle = isNoData 
+                        ? `left: ${leftOffset}px; color: #888; text-shadow: 1px 0 1px #fff, -1px 0 1px #fff, 0 1px 1px #fff, 0 -1px 1px #fff;` 
+                        : `left: ${leftOffset}px;`;
+
+                    const label = L.marker([station.lat, station.lon], {
+                        icon: L.divIcon({
+                            className: 'my-custom-label',
+                            html: `<span class="station-label-text" style="${textStyle}">${station.name}</span>`,
+                            iconSize: [0, 0]
+                        }),
+                        interactive: !shouldShowCircle 
+                    });
+
+                    if (!shouldShowCircle) {
+                        if (isNoData) {
+                             label.bindTooltip(`<div style="font-family:sans-serif; color: #666;"><strong>${station.name}</strong><br><em>No data yet</em></div>`);
+                        } else {
+                             label.bindTooltip(`<div style="font-family:sans-serif;"><strong>${station.name}</strong><br>Lines: ${station.lines || 'N/A'}<br>Daily Volume: ${station.volume.toLocaleString()}</div>`);
+                        }
+                    }
+
+                    label.addTo(labelLayers);
+                }
+            
+            }
+        });
+
+        // Wrap the camera movement in the adjustBounds check
+        if (adjustBounds) {
+            if (bounds.isValid() && activeLines.size > 0) {
+                map.flyToBounds(bounds, { padding: [40, 40], duration: 0.85 });
+            } else if (activeLines.size === 0) {
+                map.flyTo([-37.8136, 144.9631], 10.5, {duration: 0.85}); // 10.5 maintains your new zoom level
+            }
+        }
+
+        setTimeout(performCollisionDetection, 50);
+    }
+
+    map.on('moveend zoomend', () => { setTimeout(performCollisionDetection, 50); });
+
+    function performCollisionDetection() {
+        if (!showLabels) return;
+        
+        requestAnimationFrame(() => {
+            const boxes = [];
+            const labels = document.querySelectorAll('.station-label-text');
+
+            labels.forEach(label => {
+                label.style.visibility = 'visible';
+                const rect = label.getBoundingClientRect();
+                
+                let isColliding = false;
+
+                for (let i = 0; i < boxes.length; i++) {
+                    const b = boxes[i];
+                    if (!(rect.right + 2 < b.left || rect.left - 2 > b.right || 
+                          rect.bottom + 2 < b.top || rect.top - 2 > b.bottom)) {
+                        isColliding = true;
+                        break;
+                    }
+                }
+
+                if (isColliding) {
+                    label.style.visibility = 'hidden';
+                } else {
+                    label.style.visibility = 'visible';
+                    boxes.push(rect);
+                }
+            });
+        });
+    }
+</script>
 </body>
 
 </html>

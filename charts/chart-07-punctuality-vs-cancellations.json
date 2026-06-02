@@ -1,8 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Network Delivery and Punctuality Trends (2024-2026).",
-  "width": 700,
-  "height": 300,
+  "description": "Network Delivery and Punctuality Trends with Range Selection.",
+  "background": "transparent",
   "data": {"url": "data/cleaned/network_trends.csv"},
   "transform": [
     {
@@ -14,39 +13,76 @@
       "as": "Metric Name"
     }
   ],
-  "mark": {
-    "type": "line",
-    "point": {"size": 75},
-    "strokeWidth": 3
-  },
-  "encoding": {
-    "x": {
-      "field": "month_year",
-      "type": "temporal",
-      "title": null,
-      "axis": {
-        "format": "%b %Y", 
-        "grid": false,
-        "labelAngle": -45
+  "vconcat": [
+    {
+      "width": 700,
+      "height": 250,
+      "mark": {
+        "type": "line",
+        "point": {"size": 75, "filled": true},
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "month_year",
+          "type": "temporal",
+          "scale": {"domain": {"param": "brush"}},
+          "title": null,
+          "axis": {"format": "%b %Y", "grid": false, "labelAngle": -45}
+        },
+        "y": {
+          "field": "Percentage",
+          "type": "quantitative",
+          "scale": {"zero": false},
+          "title": "Performance Rate",
+          "axis": {"format": ".0%", "gridColor": "#f0f0f0"}
+        },
+        "color": {
+          "field": "Metric Name",
+          "type": "nominal",
+          "title": "Metric",
+          "scale": {"range": ["#0072B2", "#D55E00"]}
+        },
+        "tooltip": [
+          {"field": "month_year", "type": "temporal", "title": "Month", "format": "%B %Y"},
+          {"field": "Metric Name", "type": "nominal", "title": "Metric Type"},
+          {"field": "Percentage", "type": "quantitative", "title": "Performance Rate", "format": ".1%"}
+        ]
       }
     },
-    "y": {
-      "field": "Percentage",
-      "type": "quantitative",
-      "scale": {"zero": false},
-      "title": "Performance",
-      "axis": {"format": ".0%"}
-    },
-    "color": {
-      "field": "Metric Name",
-      "type": "nominal",
-      "title": null,
-      "scale": {"range": ["#2ecc71", "#3498db"]}
-    },
-    "tooltip": [
-      {"field": "month_year", "type": "temporal", "title": "Month", "format": "%B %Y"},
-      {"field": "Metric Name", "type": "nominal", "title": "Metric"},
-      {"field": "Percentage", "type": "quantitative", "title": "Rate", "format": ".2%"}
-    ]
+    {
+      "width": 700,
+      "height": 60,
+      "mark": "line",
+      "params": [
+        {
+          "name": "brush",
+          "select": {"type": "interval", "encodings": ["x"]}
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "month_year",
+          "type": "temporal",
+          "title": "Drag over the timeline to zoom/filter time period",
+          "axis": {"format": "%b %Y"}
+        },
+        "y": {
+          "field": "Percentage",
+          "type": "quantitative",
+          "axis": {"tickCount": 3, "grid": false, "labels": false, "title": null}
+        },
+        "color": {
+          "field": "Metric Name",
+          "type": "nominal",
+          "scale": {"range": ["#0072B2", "#D55E00"]}
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent", "fill": "#ffffff"},
+    "axis": {"domainColor": "#ccc", "tickColor": "#ccc"},
+    "font": "sans-serif"
   }
 }

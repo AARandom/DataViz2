@@ -1,13 +1,31 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Most cancelled lines.",
+  "background": "transparent",
   "width": 300,
   "height": 250,
   "data": {"url": "data/cleaned/train_line_performance.csv"},
-  "mark": {"type": "bar", "color": "#e74c3c"},
+  "mark": "bar",
   "encoding": {
-    "y": {"field": "train_line_name", "type": "nominal", "sort": "-x"},
-    "x": {"field": "cancellation_percentage", "type": "quantitative"},
-    "tooltip": [{"field": "cancellation_percentage", "type": "quantitative"}]
+    "y": {"field": "train_line_name", "type": "nominal", "sort": "-x", "title": "Train Line"},
+    "x": {"field": "cancellation_percentage", "type": "quantitative", "title": "Cancellation Rate"},
+    "color": {
+      "field": "train_line_name",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Alamein", "Belgrave", "Glen Waverley", "Lilydale", "Cranbourne", "Pakenham", "Sunbury", "Craigieburn", "Upfield", "Hurstbridge", "Mernda", "Frankston", "Stony Point", "Sandringham", "Werribee", "Williamstown", "Flemington Racecourse"],
+        "range": ["#152C6B", "#152C6B", "#152C6B", "#152C6B", "#279FD5", "#279FD5", "#279FD5", "#FFBE00", "#FFBE00", "#BE1014", "#BE1014", "#028430", "#028430", "#F178AF", "#F178AF", "#F178AF", "#95979A"]
+      },
+      "legend": null
+    },
+    "tooltip": [
+      {"field": "train_line_name", "type": "nominal", "title": "Train Line"},
+      {"field": "cancellation_percentage", "type": "quantitative", "title": "Cancellation Rate", "format": ".1%"}
+    ]
+  },
+  "config": {
+  "view": {
+    "fill": "#ffffff"
   }
+}
 }

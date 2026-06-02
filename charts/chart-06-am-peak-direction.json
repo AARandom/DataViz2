@@ -1,17 +1,46 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Morning peak direction by journey type.",
+  "description": "Morning peak direction by journey type with interactive filtering.",
+  "background": "transparent",
   "width": 300,
   "height": 200,
   "data": {"url": "data/cleaned/vista_train_am_peak_direction.csv"},
+  
+  "params": [
+    {
+      "name": "direction_select",
+      "select": {"type": "point", "fields": ["direction"]},
+      "bind": "legend"
+    }
+  ],
+  
   "transform": [
     {"calculate": "datum.direction === 'Inbound' ? datum.passenger_count : -datum.passenger_count", "as": "signed"}
   ],
+  
   "mark": "bar",
   "encoding": {
-    "y": {"field": "journey_type", "type": "nominal"},
-    "x": {"field": "signed", "type": "quantitative"},
-    "color": {"field": "direction", "type": "nominal"},
-    "tooltip": [{"field": "passenger_count", "type": "quantitative"}]
+    "y": {"field": "journey_type", "type": "nominal", "title": "Journey Type"},
+    "x": {"field": "signed", "type": "quantitative", "title": "Passenger Count"},
+    "color": {
+      "field": "direction", 
+      "type": "nominal", 
+      "title": "Direction", 
+      "scale": {"range": ["#56B4E9", "#808080", "#D55E00"]}
+    },
+    "opacity": {
+      "condition": {"param": "direction_select", "value": 1},
+      "value": 0.2
+    },
+    "tooltip": [
+      {"field": "journey_type", "type": "nominal", "title": "Journey Type"},
+      {"field": "direction", "type": "nominal", "title": "Direction"},
+      {"field": "passenger_count", "type": "quantitative", "title": "Passenger Count", "format": ",.0f"}
+    ]
+  },
+  "config": {
+  "view": {
+    "fill": "#ffffff"
   }
+}
 }

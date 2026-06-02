@@ -1,16 +1,27 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Fare type share.",
+  "background": "transparent",
   "width": 300,
   "height": 200,
   "data": {"url": "data/cleaned/vista_train_fare_type_share.csv"},
   "mark": {"type": "arc", "innerRadius": 40, "stroke": "white"},
   "encoding": {
     "theta": {"field": "percentage", "type": "quantitative"},
-    "color": {"field": "fare_category", "type": "nominal", "title": "Fare Category"},
+    "color": {
+      "field": "fare_category",
+      "type": "nominal",
+      "title": "Fare Category",
+      "scale": {"range": ["#56B4E9", "#E69F00", "#009E73", "#CC79A7", "#0072B2", "#D55E00"]}
+    },
     "tooltip": [
       {"field": "fare_category", "type": "nominal", "title": "Fare Category"}, 
-      {"field": "percentage", "type": "quantitative", "title": "Percentage"}
+      {"field": "percentage", "type": "quantitative", "title": "Share of Journeys", "format": ".1%"}
     ]
+  },
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    }
   }
 }

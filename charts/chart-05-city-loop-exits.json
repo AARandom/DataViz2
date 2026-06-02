@@ -1,6 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "City Loop station exits donut chart.",
+  "background": "transparent",
   "width": 300,
   "height": 200,
   "data": {"url": "data/cleaned/station_volumes_2024_2025.csv"},
@@ -10,10 +11,20 @@
   "mark": {"type": "arc", "innerRadius": 50, "stroke": "white"},
   "encoding": {
     "theta": {"field": "daily_passenger_volume", "type": "quantitative"},
-    "color": {"field": "station_name", "type": "nominal", "title": "Station"},
+    "color": {
+      "field": "station_name",
+      "type": "nominal",
+      "title": "Station",
+      "scale": {"range": ["#56B4E9", "#E69F00", "#009E73", "#CC79A7", "#0072B2", "#D55E00"]}
+    },
     "tooltip": [
       {"field": "station_name", "type": "nominal", "title": "Station"}, 
-      {"field": "daily_passenger_volume", "type": "quantitative", "title": "Daily Passengers"}
+      {"field": "daily_passenger_volume", "type": "quantitative", "title": "Daily Passengers", "format": ",.0f"}
     ]
+  },
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    }
   }
 }

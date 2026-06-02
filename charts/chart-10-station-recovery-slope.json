@@ -1,47 +1,150 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Station recovery from 2019 to 2024.",
-  "width": 300,
-  "height": 400,
-  "data": {"url": "data/cleaned/station_volume_change_2019_2024.csv"},
-  "transform": [
-    {
-      "window": [{"op": "rank", "as": "rank"}],
-      "sort": [{"field": "annual_passenger_count_2024", "order": "descending"}]
-    },
-    {"filter": "datum.rank <= 20"},
-    {"fold": ["annual_passenger_count_2019", "annual_passenger_count_2024"], "as": ["year", "count"]}
-  ],
-  "encoding": {
-    "y": {
-      "field": "station_name", 
-      "type": "nominal", 
-      "sort": {"field": "count", "op": "max", "order": "descending"},
-      "title": "Station"
-    },
-    "x": {
-      "field": "count", 
-      "type": "quantitative", 
-      "title": "Annual Passengers"
-    }
-  },
+  "title": "Station Recovery (2019-2024)",
+  "padding": {"right": 30},
+  "background": "transparent",
   "layer": [
     {
-      "mark": {"type": "line", "color": "#cccccc"},
+      "data": {
+        "values": [
+          {"direction": "Growth", "x_pixel": 310, "y_pixel": 105},
+          {"direction": "Decline", "x_pixel": 360, "y_pixel": 105}
+        ]
+      },
+      "params": [
+        {
+          "name": "sort_click",
+          "select": {
+            "type": "point",
+            "fields": ["direction"],
+            "toggle": false,
+            "clear": false
+          },
+          "value": {"direction": "Growth"}
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "cursor": "pointer"
+      },
       "encoding": {
-        "detail": {"field": "station_name", "type": "nominal"}
+        "x": {"field": "x_pixel", "type": "quantitative", "scale": null},
+        "y": {"field": "y_pixel", "type": "quantitative", "scale": null},
+        "text": {"field": "direction"},
+        "color": {
+          "condition": {"param": "sort_click", "value": "#0072B2"},
+          "value": "#777777"
+        },
+        "size": {
+          "condition": {"param": "sort_click", "value": 13},
+          "value": 11
+        }
       }
     },
     {
-      "mark": {"type": "point", "size": 80, "opacity": 1},
-      "encoding": {
-        "color": {"field": "year", "type": "nominal", "title": "Year"},
-        "tooltip": [
-          {"field": "station_name", "type": "nominal"}, 
-          {"field": "year", "type": "nominal"}, 
-          {"field": "count", "type": "quantitative"}
+      "data": {
+        "values": [
+          {"label": "Sort:", "x_pixel": 350, "y_pixel": 85}
         ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "top",
+        "fontWeight": "bold",
+        "fontSize": 12,
+        "color": "#333333"
+      },
+      "encoding": {
+        "x": {"field": "x_pixel", "type": "quantitative", "scale": null},
+        "y": {"field": "y_pixel", "type": "quantitative", "scale": null},
+        "text": {"field": "label"}
       }
+    },
+    {
+      "width": 300,
+      "height": 400,
+      "data": {
+        "url": "data/cleaned/station_volume_change_2019_2024.csv",
+        "format": {
+          "parse": {
+            "annual_passenger_count_2019": "number",
+            "annual_passenger_count_2024": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum.annual_passenger_count_2024 - datum.annual_passenger_count_2019",
+          "as": "diff"
+        },
+        {
+          "calculate": "datum.diff * (indexof(sort_click.direction, 'Decline') >= 0 ? -1 : 1)",
+          "as": "sorted_diff"
+        },
+        {
+          "window": [{"op": "rank", "as": "rank"}],
+          "sort": [{"field": "sorted_diff", "order": "descending"}]
+        },
+        {"filter": "datum.rank <= 20"},
+        {
+          "fold": ["annual_passenger_count_2019", "annual_passenger_count_2024"],
+          "as": ["year", "count"]
+        },
+        {
+          "calculate": "replace(datum.year, 'annual_passenger_count_', '')",
+          "as": "year"
+        }
+      ],
+      "encoding": {
+        "y": {
+          "field": "station_name",
+          "type": "nominal",
+          "sort": {
+            "op": "max",
+            "field": "sorted_diff",
+            "order": "descending"
+          },
+          "title": "Station"
+        },
+        "x": {
+          "field": "count",
+          "type": "quantitative",
+          "title": "Annual Passengers"
+        }
+      },
+      "layer": [
+        {
+          "mark": {"type": "line", "color": "#cccccc"},
+          "encoding": {
+            "detail": {"field": "station_name", "type": "nominal"}
+          }
+        },
+        {
+          "mark": {"type": "point", "size": 80, "opacity": 1},
+          "encoding": {
+            "color": {
+              "field": "year",
+              "type": "nominal",
+              "scale": {"range": ["#E69F00", "#0072B2"]},
+              "legend": {"title": "Year"}
+            },
+            "tooltip": [
+              {"field": "station_name", "type": "nominal", "title": "Station"},
+              {"field": "year", "type": "nominal", "title": "Year"},
+              {"field": "count", "type": "quantitative", "title": "Passengers", "format": ",.0f"},
+              {"field": "diff", "type": "quantitative", "title": "Diff", "format": ",.0f"}
+            ]
+          }
+        }
+      ]
     }
-  ]
+  ],
+  "config": {
+    "view": {
+      "fill": "#ffffff"
+    }
+  }
 }

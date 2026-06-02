@@ -1,0 +1,120 @@
+start_time,start_LGA,end_LGA,main_journey_mode,journey_weight,peak_period,direction,journey_type,passenger_count
+456,Greater Dandenong (C),Melbourne (C),Train,1931.995681117,AM Peak,Inbound,Work,1931.995681117
+447,Frankston (C),Melbourne (C),Train,500.503214495,AM Peak,Inbound,Work,500.503214495
+420,Port Phillip (C),Glen Eira (C),Train,1119.903335636,AM Peak,Other,Work,1119.903335636
+510,Whitehorse (C),Melbourne (C),Train,980.287536303,AM Peak,Inbound,Work,980.287536303
+450,Greater Dandenong (C),Melbourne (C),Train,975.45971552,AM Peak,Inbound,Work,975.45971552
+443,Greater Dandenong (C),Melbourne (C),Train,727.052228142,AM Peak,Inbound,Work,727.052228142
+435,Casey (C),Melbourne (C),Train,439.262575818,AM Peak,Inbound,Work,439.262575818
+480,Boroondara (C),Melbourne (C),Train,576.520575252,AM Peak,Inbound,Work,576.520575252
+450,Mitchell (S),Moonee Valley (C),Train,240.474884901,AM Peak,Other,Work,240.474884901
+450,Mitchell (S),Melbourne (C),Train,512.759010556,AM Peak,Inbound,Work,512.759010556
+524,Maribyrnong (C),Melbourne (C),Train,1017.737455468,AM Peak,Inbound,Work,1017.737455468
+495,Glen Eira (C),Melbourne (C),Train,595.062870189,AM Peak,Inbound,Work,595.062870189
+450,Casey (C),Monash (C),Train,490.383880558,AM Peak,Other,Work,490.383880558
+487,Casey (C),Monash (C),Train,1074.560330341,AM Peak,Other,Work,1074.560330341
+476,Casey (C),Glen Eira (C),Train,794.67850827,AM Peak,Other,Work,794.67850827
+426,Maroondah (C),Melbourne (C),Train,724.952053981,AM Peak,Inbound,Work,724.952053981
+461,Maroondah (C),Port Phillip (C),Train,367.361095616,AM Peak,Other,Work,367.361095616
+450,Maroondah (C),Melbourne (C),Train,538.222888254,AM Peak,Inbound,Work,538.222888254
+493,Kingston (C),Melbourne (C),Train,577.6426215,AM Peak,Inbound,Work,577.6426215
+485,Merri-bek (C),Melbourne (C),Train,996.47982016,AM Peak,Inbound,Work,996.47982016
+463,Melton (S),Port Phillip (C),Train,1431.004005116,AM Peak,Other,Work,1431.004005116
+420,Merri-bek (C),Ballarat (C),Train,2167.260573309,AM Peak,Other,Work,2167.260573309
+472,Merri-bek (C),Melbourne (C),Train,1558.561168619,AM Peak,Inbound,Work,1558.561168619
+504,Maribyrnong (C),Melbourne (C),Train,885.63748562,AM Peak,Inbound,Work,885.63748562
+490,Maribyrnong (C),Melbourne (C),Train,1439.602414871,AM Peak,Inbound,Work,1439.602414871
+450,Whittlesea (C),Yarra (C),Train,671.139479593,AM Peak,Other,Work,671.139479593
+450,Whittlesea (C),Melbourne (C),Train,671.221253209,AM Peak,Inbound,Work,671.221253209
+450,Stonnington (C),Melbourne (C),Train,451.371489397,AM Peak,Inbound,Work,451.371489397
+480,Stonnington (C),Whitehorse (C),Train,401.092324126,AM Peak,Other,Work,401.092324126
+464,Yarra Ranges (S),Melbourne (C),Train,814.937809988,AM Peak,Inbound,Work,814.937809988
+468,Stonnington (C),Melbourne (C),Train,528.155186733,AM Peak,Inbound,Work,528.155186733
+480,Kingston (C),Melbourne (C),Train,1358.784445396,AM Peak,Inbound,Work,1358.784445396
+420,Kingston (C),Melbourne (C),Train,608.66180104,AM Peak,Inbound,Work,608.66180104
+540,Whitehorse (C),Melbourne (C),Train,776.294108385,AM Peak,Inbound,Work,776.294108385
+518,Hobsons Bay (C),Glen Eira (C),Train,408.910950794,AM Peak,Other,Work,408.910950794
+465,Moonee Valley (C),Melbourne (C),Train,379.164181348,AM Peak,Inbound,Work,379.164181348
+495,Yarra (C),Melbourne (C),Train,959.541678491,AM Peak,Inbound,Work,959.541678491
+444,Kingston (C),Kingston (C),Train,376.484054115,AM Peak,Other,Work,376.484054115
+460,Hobsons Bay (C),Stonnington (C),Train,258.446624753,AM Peak,Other,Work,258.446624753
+461,Maroondah (C),Melbourne (C),Train,643.909151713,AM Peak,Inbound,Work,643.909151713
+420,Greater Dandenong (C),Monash (C),Train,2103.255757017,AM Peak,Other,Work,2103.255757017
+420,Melton (S),Melbourne (C),Train,1151.310605615,AM Peak,Inbound,Work,1151.310605615
+450,Knox (C),Melbourne (C),Train,560.247006555,AM Peak,Inbound,Work,560.247006555
+435,Port Phillip (C),Maribyrnong (C),Train,1386.622234295,AM Peak,Other,Work,1386.622234295
+486,Wyndham (C),Yarra (C),Train,527.978358167,AM Peak,Other,Work,527.978358167
+480,Casey (C),Monash (C),Train,432.895411673,AM Peak,Other,Work,432.895411673
+463,Darebin (C),Melbourne (C),Train,210.176079855,AM Peak,Inbound,Work,210.176079855
+501,Yarra (C),Yarra (C),Train,568.726158162,AM Peak,Other,Work,568.726158162
+456,Whittlesea (C),Melbourne (C),Train,936.925322779,AM Peak,Inbound,Work,936.925322779
+435,Whittlesea (C),Maribyrnong (C),Train,1083.336331657,AM Peak,Other,Work,1083.336331657
+540,Brimbank (C),Melbourne (C),Train,3341.172126341,AM Peak,Inbound,Work,3341.172126341
+435,Greater Geelong (C),Melbourne (C),Train,576.538691964,AM Peak,Inbound,Work,576.538691964
+478,Greater Geelong (C),Greater Geelong (C),Train,278.646591608,AM Peak,Other,Work,278.646591608
+440,Greater Geelong (C),Greater Geelong (C),Train,256.836574649,AM Peak,Other,Work,256.836574649
+420,Manningham (C),Melbourne (C),Train,75.334909986,AM Peak,Inbound,Work,75.334909986
+420,Maroondah (C),Melbourne (C),Train,704.675502788,AM Peak,Inbound,Work,704.675502788
+460,Whitehorse (C),Melbourne (C),Train,352.219693951,AM Peak,Inbound,Work,352.219693951
+1005,Whitehorse (C),Melbourne (C),Train,166.011038417,PM Peak,Inbound,Work,166.011038417
+427,Glen Eira (C),Melbourne (C),Train,626.883329209,AM Peak,Inbound,Work,626.883329209
+440,Glen Eira (C),Boroondara (C),Train,700.101512033,AM Peak,Other,Work,700.101512033
+480,Glen Eira (C),Glen Eira (C),Train,660.217589016,AM Peak,Other,Work,660.217589016
+491,Darebin (C),Melbourne (C),Train,551.383308034,AM Peak,Inbound,Work,551.383308034
+450,Stonnington (C),Melbourne (C),Train,1686.80456697,AM Peak,Inbound,Work,1686.80456697
+470,Stonnington (C),Melbourne (C),Train,2443.864843686,AM Peak,Inbound,Work,2443.864843686
+480,Boroondara (C),Melbourne (C),Train,1126.229719384,AM Peak,Inbound,Work,1126.229719384
+420,Nillumbik (S),Yarra (C),Train,411.21431526,AM Peak,Other,Work,411.21431526
+480,Knox (C),Melbourne (C),Train,553.282866288,AM Peak,Inbound,Work,553.282866288
+459,Wyndham (C),Melbourne (C),Train,638.990228639,AM Peak,Inbound,Work,638.990228639
+420,Wyndham (C),Melbourne (C),Train,620.314772925,AM Peak,Inbound,Work,620.314772925
+470,Melbourne (C),Greater Geelong (C),Train,4768.346881219,AM Peak,Outbound,Work,4768.346881219
+430,Brimbank (C),Greater Geelong (C),Train,706.172862933,AM Peak,Other,Work,706.172862933
+480,Kingston (C),Melbourne (C),Train,797.922837746,AM Peak,Inbound,Work,797.922837746
+450,Monash (C),Melbourne (C),Train,962.141110822,AM Peak,Inbound,Work,962.141110822
+540,Melbourne (C),Melbourne (C),Train,1144.917344492,AM Peak,Other,Work,1144.917344492
+480,Melbourne (C),Melbourne (C),Train,3792.622936884,AM Peak,Other,Work,3792.622936884
+435,Moonee Valley (C),Port Phillip (C),Train,656.258154289,AM Peak,Other,Work,656.258154289
+495,Moonee Valley (C),Melbourne (C),Train,838.362018623,AM Peak,Inbound,Work,838.362018623
+525,Monash (C),Melbourne (C),Train,660.242513998,AM Peak,Inbound,Work,660.242513998
+495,Glen Eira (C),Melbourne (C),Train,927.634328572,AM Peak,Inbound,Work,927.634328572
+523,Glen Eira (C),Kingston (C),Train,516.626909457,AM Peak,Other,Work,516.626909457
+500,Glen Eira (C),Melbourne (C),Train,720.633857795,AM Peak,Inbound,Work,720.633857795
+436,Glen Eira (C),Glen Eira (C),Train,664.035413553,AM Peak,Other,Work,664.035413553
+465,Cardinia (S),Melbourne (C),Train,394.285447706,AM Peak,Inbound,Work,394.285447706
+450,Whittlesea (C),Melbourne (C),Train,1802.429917463,AM Peak,Inbound,Work,1802.429917463
+480,Whittlesea (C),Melbourne (C),Train,1128.044698344,AM Peak,Inbound,Work,1128.044698344
+465,Maroondah (C),Melbourne (C),Train,1683.754882245,AM Peak,Inbound,Work,1683.754882245
+504,Port Phillip (C),Yarra (C),Train,580.534472122,AM Peak,Other,Work,580.534472122
+435,Wyndham (C),Wyndham (C),Train,738.694261983,AM Peak,Other,Work,738.694261983
+460,Kingston (C),Yarra (C),Train,444.383198444,AM Peak,Other,Work,444.383198444
+448,Merri-bek (C),Melbourne (C),Train,1088.846396761,AM Peak,Inbound,Work,1088.846396761
+448,Merri-bek (C),Yarra (C),Train,675.708605615,AM Peak,Other,Work,675.708605615
+540,Merri-bek (C),Maribyrnong (C),Train,1042.382861578,AM Peak,Other,Work,1042.382861578
+540,Glen Eira (C),Yarra (C),Train,550.547738595,AM Peak,Other,Work,550.547738595
+495,Boroondara (C),Melbourne (C),Train,371.583870861,AM Peak,Inbound,Work,371.583870861
+450,Boroondara (C),Melbourne (C),Train,585.25040308,AM Peak,Inbound,Work,585.25040308
+476,Boroondara (C),Melbourne (C),Train,559.38981019,AM Peak,Inbound,Work,559.38981019
+440,Melbourne (C),Boroondara (C),Train,1559.86212956,AM Peak,Outbound,Education,1559.86212956
+456,Hume (C),Melbourne (C),Train,1031.987334586,AM Peak,Inbound,Education,1031.987334586
+540,Casey (C),Melbourne (C),Train,586.86737393,AM Peak,Inbound,Education,586.86737393
+420,Casey (C),Melbourne (C),Train,538.487176983,AM Peak,Inbound,Education,538.487176983
+450,Casey (C),Monash (C),Train,656.538064309,AM Peak,Other,Education,656.538064309
+487,Casey (C),Melbourne (C),Train,692.886493272,AM Peak,Inbound,Education,692.886493272
+470,Kingston (C),Kingston (C),Train,620.95156579,AM Peak,Other,Education,620.95156579
+460,Kingston (C),Kingston (C),Train,1814.710487172,AM Peak,Other,Education,1814.710487172
+442,Kingston (C),Bayside (C),Train,655.383234288,AM Peak,Other,Education,655.383234288
+450,Darebin (C),Melbourne (C),Train,302.751738954,AM Peak,Inbound,Education,302.751738954
+525,Casey (C),Melbourne (C),Train,646.619059498,AM Peak,Inbound,Education,646.619059498
+450,Darebin (C),Whittlesea (C),Train,459.719250222,AM Peak,Other,Education,459.719250222
+480,Greater Geelong (C),Melbourne (C),Train,775.318242227,AM Peak,Inbound,Education,775.318242227
+460,Whitehorse (C),Melbourne (C),Train,273.589244579,AM Peak,Inbound,Education,273.589244579
+457,Whitehorse (C),Boroondara (C),Train,496.594038745,AM Peak,Other,Education,496.594038745
+440,Darebin (C),Darebin (C),Train,769.568960972,AM Peak,Other,Education,769.568960972
+432,Wyndham (C),Boroondara (C),Train,1050.069901776,AM Peak,Other,Education,1050.069901776
+430,Banyule (C),Melbourne (C),Train,818.888983193,AM Peak,Inbound,Education,818.888983193
+540,Brimbank (C),Boroondara (C),Train,1569.821919654,AM Peak,Other,Education,1569.821919654
+540,Brimbank (C),Melbourne (C),Train,1635.651309672,AM Peak,Inbound,Education,1635.651309672
+460,Moonee Valley (C),Melbourne (C),Train,874.145897438,AM Peak,Inbound,Education,874.145897438
+465,Cardinia (S),Casey (C),Train,630.850571029,AM Peak,Other,Education,630.850571029
+420,Merri-bek (C),Melbourne (C),Train,322.551619911,AM Peak,Inbound,Education,322.551619911

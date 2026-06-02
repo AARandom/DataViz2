@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>The Pulse of Melbourne | Train Network Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+</head>
+
+<body>
+
+  <div class="page">
+
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <h1>The Pulse of Melbourne: How the City Moves</h1>
+        <p>An interactive exploration of passenger flow, network pressure, and reliability across the metropolitan train network.</p>
+      </div>
+    </div>
+
+    <!-- Row 1: Geographic Overview -->
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-4">
+        <h2>Daily Passenger Flow</h2>
+        <p>A geographic map of Melbourne's train network. Train lines are drawn as paths, and station locations are represented by circles. The size of each circle indicates the daily passenger volume for that station.</p>
+      </div>
+      <div class="pure-u-3-4">
+        <div id="chart1" class="vis-container"></div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Row 2: Temporal Rhythm -->
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-1">
+        <h2>Temporal Rhythm</h2>
+      </div>
+    </div>
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-3">
+        <h3>Busiest Times of the Week</h3>
+        <div id="chart3" class="vis-container"></div>
+      </div>
+      <div class="pure-u-1-3">
+        <h3>Passengers by Hour</h3>
+        <div id="chart2" class="vis-container"></div>
+      </div>
+      <div class="pure-u-1-3">
+        <p>This row focuses purely on "when" people are riding the train, looking at time-of-day and day-of-week trends.</p>
+        <p>Shows the macro daily peaks and troughs in passenger numbers.</p>
+        <p>Expands the time dimension to show how weekdays compare to weekends.</p>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Row 3: Passenger Profiles & Demographics -->
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-1">
+        <h2>Passenger Profiles & Demographics</h2>
+      </div>
+    </div>
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-3">
+        <h3>Morning Peak Direction by Journey Type</h3>
+        <div id="chart6" class="vis-container"></div>
+      </div>
+      <div class="pure-u-1-3">
+        <p>This row answers "why" people are traveling and "how" they are paying, creating a demographic snapshot of the ridership.</p>
+        <p>Breaks down the morning rush by purpose (Work vs. Education) and direction.</p>
+        <p>Provides a simple breakdown of fare categories.</p>
+      </div>
+      <div class="pure-u-1-3">
+        <h3>Ticket Types</h3>
+        <div id="chart9" class="vis-container"></div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Row 4: Station Activity & Recovery -->
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-1">
+        <h2>Station Activity & Recovery</h2>
+        <p>This row contrasts the massive City Loop volumes against the busiest suburban hubs, while tracking the post-pandemic recovery.</p>
+      </div>
+    </div>
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-2">
+        <h3>City Loop Station Exits</h3>
+        <div id="chart5" class="vis-container"></div>
+      </div>
+      <div class="pure-u-1-2">
+        <h3>Busiest Suburban Stations</h3>
+        <div id="chart4" class="vis-container"></div>
+      </div>
+    </div>
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-1">
+        <h3>Pre-Pandemic Passenger Numbers: 2019 vs 2024</h3>
+        <div id="chart10" class="vis-container"></div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Row 5: Network Reliability & Performance -->
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-1">
+        <h2>Network Reliability & Performance</h2>
+        <p>This row is purely diagnostic, focusing on the operational health of the train lines (punctuality and cancellations).</p>
+      </div>
+    </div>
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-2">
+        <h3>Most Cancelled Lines</h3>
+        <p>The companion to the on-time chart, showing the worst offenders for cancelled services.</p>
+        <div id="chart8" class="vis-container"></div>
+      </div>
+      <div class="pure-u-1-2">
+        <h3>On-Time Performance by Line</h3>
+        <p>A detailed ranking of punctuality, visually anchored by the 0.92 target line.</p>
+        <div id="chart11" class="vis-container"></div>
+      </div>
+    </div>
+    <div class="pure-g" style="text-align: center;">
+      <div class="pure-u-1-1">
+        <h3>Performance over the Years</h3>
+        <p>Delivery means XX. Punctuality means YY.</p>
+        <div id="chart7" class="vis-container"></div>
+      </div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1-1 small-font">
+        <p>Data sourced from <a href="https://discover.data.vic.gov.au/" target="_blank">Data Vic</a> and the Department of Transport.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="text/javascript">
+    vegaEmbed('#chart1', './charts/chart-01-daily-passenger-flow.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart2', './charts/chart-02-passengers-by-hour.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart3', './charts/chart-03-busiest-times-week.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart4', './charts/chart-04-busiest-suburban-stations.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart5', './charts/chart-05-city-loop-exits.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart6', './charts/chart-06-am-peak-direction.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart7', './charts/chart-07-punctuality-vs-cancellations.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart8', './charts/chart-08-most-cancelled-lines.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart9', './charts/chart-09-ticket-types.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart10', './charts/chart-10-station-recovery-slope.json', { "actions": false }).catch(console.error);
+    vegaEmbed('#chart11', './charts/chart-11-on-time-performance.json').catch(console.error);
+  </script>
+</body>
+
+</html>

@@ -1,13 +1,91 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Passengers by hour of day.",
+  "description": "Passengers by hour of day with peak annotations.",
+  "background": "transparent",
   "width": 300,
-  "height": 180,
+  "height": 200,
   "data": {"url": "data/cleaned/vista_train_by_hour.csv"},
-  "mark": {"type": "area", "opacity": 0.7, "color": "#3498db"},
-  "encoding": {
-    "x": {"field": "time_of_day_hour", "type": "quantitative", "title": "Hour"},
-    "y": {"field": "passenger_count", "type": "quantitative", "title": "Passengers"},
-    "tooltip": [{"field": "passenger_count", "type": "quantitative", "title": "Passengers"}]
+  "transform": [
+    {
+      "calculate": "(datum.time_of_day_hour % 12 === 0 ? 12 : datum.time_of_day_hour % 12) + ':00 ' + (datum.time_of_day_hour >= 12 ? 'PM' : 'AM')",
+      "as": "time_display"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "area", "opacity": 0.7, "color": "#56B4E9"},
+      "encoding": {
+        "x": {
+          "field": "time_of_day_hour", 
+          "type": "quantitative", 
+          "title": "Hour of Day", 
+          "axis": {
+            "labelAngle": -45, 
+            "labelExpr": "(datum.value % 12 === 0 ? 12 : datum.value % 12) + ':00 ' + (datum.value >= 12 ? 'PM' : 'AM')", 
+            "tickCount": 12
+          }
+        },
+        "y": {"field": "passenger_count", "type": "quantitative", "title": "Passengers"},
+        "tooltip": [
+          {"field": "time_display", "type": "nominal", "title": "Time"},
+          {"field": "passenger_count", "type": "quantitative", "title": "Passengers", "format": ",d"}
+        ]
+      }
+    },
+    {
+      "data": {"values": [{"hour": 7, "label": "AM Peak"}]},
+      "mark": {
+        "type": "text", 
+        "align": "left", 
+        "baseline": "top", 
+        "dx": 5, 
+        "dy": 5,
+        "fontSize": 11, 
+        "fontWeight": "bold", 
+        "color": "#0072B2"
+      },
+      "encoding": {
+        "x": {"field": "hour", "type": "quantitative"},
+        "y": {"value": 0},
+        "text": {"field": "label", "type": "nominal"}
+      }
+    },
+    {
+      "data": {"values": [{"hour": 7}]},
+      "mark": {"type": "rule", "color": "#000000", "opacity": 0.8, "strokeDash": [3, 3]},
+      "encoding": {
+        "x": {"field": "hour", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {"values": [{"hour": 17, "label": "PM Peak"}]},
+      "mark": {
+        "type": "text", 
+        "align": "left", 
+        "baseline": "top", 
+        "dx": 5, 
+        "dy": 5,
+        "fontSize": 11, 
+        "fontWeight": "bold", 
+        "color": "#0072B2"
+      },
+      "encoding": {
+        "x": {"field": "hour", "type": "quantitative"},
+        "y": {"value": 0},
+        "text": {"field": "label", "type": "nominal"}
+      }
+    },
+    {
+      "data": {"values": [{"hour": 17}]},
+      "mark": {"type": "rule", "color": "#000000", "opacity": 0.8, "strokeDash": [3, 3]},
+      "encoding": {
+        "x": {"field": "hour", "type": "quantitative"}
+      }
+    }
+  ],
+  "config": {
+  "view": {
+    "fill": "#ffffff"
   }
+}
 }
